@@ -22,8 +22,8 @@ def DepartuePage(window):
         highlightthickness = 0,
         relief = "ridge"
     )
-
     canvas_2.place(x = 0, y = 0)
+
     image_image_Departure = ctk.CTkImage(
         light_image=Image.open(relative_to_assets("Departure_bg_2.png")),
         dark_image=Image.open(relative_to_assets("Departure_bg_2.png")),
@@ -41,13 +41,16 @@ def DepartuePage(window):
         width = 1232,
     )
     main_frame_ticket.place(x=325, y=522)
+
     buttonsss_fonta = ctk.CTkFont('Georgia', 20, weight='bold', underline=True)
     buttonsss_fontb = ctk.CTkFont('Felix titling', 12, weight='bold', underline=False)
+
     '''__________________________________________
        '''
-    texta = '       GOI __________________________________________ DXB\n       5:00\t\t\t\t\t   6:00'
-    textaa = '\tGOI\t\t\t\tDXB\n\t5:00\t\t\t\t   6:00'
-    textb = ' From  500 '
+    texta = f'       GOI  ____________________________________________  DXB\n      5:00\t\t\t\t\t     6:00'
+    textaa = f'\tGOI\t\t\t\tDXB\n\t5:00\t\t\t\t   6:00'
+    textb = f' From  500 '
+
     for k in range(6):
 
         image_image_3 = ctk.CTkImage(
@@ -60,39 +63,50 @@ def DepartuePage(window):
             text=texta,
             font=buttonsss_fontb
         )
-
-        #tkct_label.place(x=342, y=443)
-
         tkct_label.grid(row=k, column=0, padx=7, pady=5)
-        
+
+        fontsst=ctk.CTkFont('Eras tours ITC', 10, 'bold', underline=False)
         for i in range(2):
             
             buttonsss = ctk.CTkButton(
                 main_frame_ticket,
                 fg_color='black',
                 #bg_color='black',
-                width=351,
+                width=480,
                 height=64,
-                text=textb,
-                font=buttonsss_fonta,
+                text=texta,
+                font=buttonsss_fontb,
                 text_color='#CCD09F',
                 corner_radius=10
                 )
-            buttonsss.grid(row=k, column=i+1, padx=5, pady=5)
+            buttonsss.grid(row=k, column=i+1, padx=2, pady=5)
+            
+            hour_label = ctk.CTkLabel(
+            buttonsss,
+            text="________________________\n4 hours /Direct Flight",
+            fg_color='transparent',
+            bg_color='black',
+            font=fontsst,
+            text_color='#CCD09F'
+            )
+            hour_label.place(x=190, y=16)
+
+
         font_text_ticket=("Stylish Regular", 18 * -1)
         
         text_list = []
-        fontsst=ctk.CTkFont('Eras Medium ITC', 10, underline=True)
         for i in enumerate(text_list):
             pass
+
+
         hour_label = ctk.CTkLabel(
             tkct_label,
-            text="4 hours /Direct Flight",
+            text="________________________\n4 hours /Direct Flight",
             fg_color='transparent',
             bg_color='white',
             font=fontsst
         )
-        hour_label.place(x=190, y=12)   
+        hour_label.place(x=190, y=17)   
     TopMenu(window, canvas_2)
     #web.mainloop
 
