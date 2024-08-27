@@ -46,15 +46,9 @@ image_1 = canvas.create_image(
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 def twoway_arr():
-    image_image_3 = PhotoImage(
-    file=relative_to_assets("Arrow.png"))
-    image_3 = ctk.CTkLabel(hometab.tab(hometablist[0]),
-        text='',
-        
-        image=image_image_3
-        )
-    image_3.place(x=288,y=79)
-
+    
+    image_two.place(x=288,y=77)
+    image_ar.place(x=288,y=-50)
     departure_date.place(x=30, y=153)
     return_date.place(x=342, y=153)
     calendar_date_d.place(x=293, y=158)
@@ -75,16 +69,8 @@ def twoway_arr():
         pass
 
 def oneway_arr ():
-    image_image_ar = PhotoImage(
-    file=relative_to_assets("Arrow_.png"),)
-    image_ar = ctk.CTkLabel(hometab.tab(hometablist[0]),
-        width=45,
-        height=40,
-        text='',
-        image=image_image_ar
-        )
-    image_ar.place(x=288,y=71)
-
+    image_ar.place(x=288,y=75)
+    image_two.place(x=288,y=-50)
     departure_date.place(x=170, y=155)
     return_date.place(x=0, y=400)
     calendar_date_d.place(x=433, y=158)
@@ -420,10 +406,38 @@ def booking_hover_leave(e):
 
 booking_button.bind('<Enter>', booking_hover_enter)
 booking_button.bind('<Leave>', booking_hover_leave)
+
+image_image_ar = ctk.CTkImage(
+        light_image=Image.open(relative_to_assets("Arrow_.png")),
+        dark_image=Image.open(relative_to_assets("Arrow_.png")),
+        size=(42, 18)
+        )
+image_ar = ctk.CTkLabel(hometab.tab(hometablist[0]),
+       # width=45,
+        #height=40,
+        text='',
+        image=image_image_ar
+        )
+
+image_image_two = ctk.CTkImage(
+        light_image=Image.open(relative_to_assets("Arrow.png")),
+        dark_image=Image.open(relative_to_assets("Arrow.png")),
+        size=(43, 27)
+        )
+image_two = ctk.CTkLabel(hometab.tab(hometablist[0]),
+        text='',
+        
+        image=image_image_two
+        )
+
+
 oneway_arr()
 
 #Manage booking Tab ----------------------------------------------------------------------------------------------------------
-manage_label_font = ctk.CTkFont('Georgia', 18, underline=True, slant='italic')
+manage_label_font = ctk.CTkFont('Georgia',
+                                18,
+                                underline=True,
+                                slant='italic')
 manage_label = ctk.CTkLabel(hometab.tab(hometablist[1]),
                             text='Enter your booking details to manage your itinerary -->',
                             text_color='#A6ACAC',
@@ -432,10 +446,12 @@ manage_label = ctk.CTkLabel(hometab.tab(hometablist[1]),
                             fg_color='#0B041B')
 manage_label.place(x=25, y=25)
 
+
 entryname_manage = ['Booking Reference No.',
              'Last Name']
 sticky_manage=['e','w']
 entries_manage = []
+
 
 for i, v in enumerate(entryname_manage):
     v = ctk.CTkEntry(hometab.tab(hometablist[1]),
@@ -451,7 +467,11 @@ for i, v in enumerate(entryname_manage):
     v.place(x=50+(i*350), y=90)
     entries_manage.append(v)
 
-retrieve_booking_button_font = ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
+
+retrieve_booking_button_font = ctk.CTkFont('Georgia',
+                                           16,
+                                           'bold',
+                                           slant='italic')
 retrieve_booking_button = ctk.CTkButton(hometab.tab(hometablist[1]),
                                         width=200,
                                         height=50,
@@ -467,6 +487,7 @@ retrieve_booking_button = ctk.CTkButton(hometab.tab(hometablist[1]),
                                         command=service_not_available)
 retrieve_booking_button.place(x=630, y=170)
 
+
 def retrieve_hover_enter(e):
     retrieve_booking_button_font.configure(slant='italic', underline=True)
     retrieve_booking_button.configure(text_color='#CCD09F')
@@ -477,7 +498,10 @@ def retrieve_hover_leave(e):
 retrieve_booking_button.bind('<Enter>', retrieve_hover_enter)
 retrieve_booking_button.bind('<Leave>', retrieve_hover_leave)
 
+
 #Check-in Tab  ----------------------------------------------------------------------------------------------------------
+
+
 check_label_font = ctk.CTkFont('Georgia', 18, underline=True, slant='italic')
 check_label = ctk.CTkLabel(hometab.tab(hometablist[2]),
                             text='Online check-in opens 30 hours before your flight -->',
@@ -489,8 +513,8 @@ check_label = ctk.CTkLabel(hometab.tab(hometablist[2]),
 check_label.place(x=25, y=25)
 entryname_checkin = ['Booking Reference No./Ticket No.',
              'Last Name']
-sticky_checkin=['e','w']
-entries_checkin = []
+sticky_checkin, entries_checkin=['e','w'],[]
+
 
 for i, v in enumerate(entryname_checkin):
     v = ctk.CTkEntry(hometab.tab(hometablist[2]),
@@ -505,6 +529,7 @@ for i, v in enumerate(entryname_checkin):
                            )
     v.place(x=50+(i*350), y=90)
     entries_checkin.append(v)
+
 
 checkin_button_font = ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
 checkin_button = ctk.CTkButton(hometab.tab(hometablist[2]),
@@ -532,6 +557,8 @@ def checkin_hover_leave(e):
 checkin_button.bind('<Enter>', checkin_hover_enter)
 checkin_button.bind('<Leave>', checkin_hover_leave)
 
+
+
 disablecustomfont = ctk.CTkFont("Georgia", 19, 'bold', overstrike=True, slant='italic')
 flight_status_disabled = ctk.CTkButton(bookframe, 
                                        width=196,
@@ -546,6 +573,8 @@ flight_status_disabled = ctk.CTkButton(bookframe,
                                        state='normal',
                                        command=service_not_available)
 flight_status_disabled.place(x=658, y=13)
+
+
 #web.wm_attributes('-transparentcolor','green')
 
 #_____________________________________________________________________Values___________________________________________________________________________________#
@@ -571,5 +600,3 @@ Book_Frame_Attributes = {
 
 
 web.mainloop()
-
-
