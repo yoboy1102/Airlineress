@@ -107,7 +107,7 @@ def TopMenu(window, canva):
         #relief="flat"
         width=84,
         height=57,
-        command = lambda :btn(frames[0])
+        command = lambda :btn(frm=frames[0], fv=0)
     )
     button_4.place(
         x=316.0,
@@ -129,7 +129,7 @@ def TopMenu(window, canva):
         #relief="flat"
         width=85,
         height=57,
-        command = lambda :btn(frames[1])
+        command = lambda :btn(frm=frames[1], fv=1)
     )
     button_5.place(
         x=442.0,
@@ -151,7 +151,7 @@ def TopMenu(window, canva):
         #relief="flat"
         width=127,
         height=57,
-        command = lambda :btn(frames[2])
+        command = lambda :btn(frm=frames[2], fv=2)
     )
     button_6.place(
         x=569.0,
@@ -173,7 +173,7 @@ def TopMenu(window, canva):
         #relief="flat"
         width=140,
         height=57,
-        command = lambda :btn(frames[3])
+        command = lambda :btn(frm=frames[3], fv=3)
     )
     button_7.place(
         x=735.0,
@@ -182,67 +182,78 @@ def TopMenu(window, canva):
 
 
 #Experience
-    button_image_hover_6 = ctk.CTkImage(
+    button_image_hover_experience = ctk.CTkImage(
         light_image=Image.open(relative_to_assets("button_hover_1.png")),
         size=(127, 57))
     def button_6_hover(e):
         button_6.configure(
-            image=button_image_hover_6
+            image=button_image_hover_experience
         )
     def button_6_leave(e):
-        button_6.configure(
-            image=button_image_6
-        )
+        if frame_bool_list[2] == False:
+            button_6.configure(
+                image=button_image_6
+            )
 
     button_6.bind('<Enter>', button_6_hover)
     button_6.bind('<Leave>', button_6_leave)
 #Explore
-    button_image_hover_4 = ctk.CTkImage(
+    button_image_hover_explore = ctk.CTkImage(
         light_image=Image.open(relative_to_assets("button_hover_2.png")),
         dark_image=Image.open(relative_to_assets("button_hover_2.png")),
         size=(84, 57))
     def button_4_hover(e):
         button_4.configure(
-            image=button_image_hover_4
+            image=button_image_hover_explore
         )
     def button_4_leave(e):
-        button_4.configure(
-            image=button_image_4
-        )
+        if frame_bool_list[0] == False:
+            button_4.configure(
+                image=button_image_4
+            )
 
     button_4.bind('<Enter>', button_4_hover)
     button_4.bind('<Leave>', button_4_leave)
 #Manage
-    button_image_hover_5 = PhotoImage(
-        file=relative_to_assets("button_hover_3.png"))
+    button_image_hover_manage = ctk.CTkImage(
+        light_image=Image.open(relative_to_assets("button_hover_3.png")),
+        dark_image=Image.open(relative_to_assets("button_hover_3.png")),
+        size=(85, 57))
     def button_5_hover(e):
         button_5.configure(
-            image=button_image_hover_5
+            image=button_image_hover_manage
         )
     def button_5_leave(e):
-        button_5.configure(
-            image=button_image_5
-        )
+        if frame_bool_list[1] == False:
+            button_5.configure(
+                image=button_image_5
+            )
 
     button_5.bind('<Enter>', button_5_hover)
     button_5.bind('<Leave>', button_5_leave)
 #Destinations
-    button_image_hover_7 = PhotoImage(
-        file=relative_to_assets("button_hover_4.png"))
+    button_image_hover_destinations = ctk.CTkImage(
+        light_image=Image.open(relative_to_assets("button_hover_4.png")),
+        dark_image=Image.open(relative_to_assets("button_hover_4.png")),
+        size=(140, 57))
     def button_7_hover(e):
         button_7.configure(
-            image=button_image_hover_7
+            image=button_image_hover_destinations
         )
     def button_7_leave(e):
-        button_7.configure(
-            image=button_image_7
-        )
+        if frame_bool_list[3] == False:
+            button_7.configure(
+                image=button_image_7
+            )
 
     button_7.bind('<Enter>', button_7_hover)
     button_7.bind('<Leave>', button_7_leave)    
-    
-    button_image_hover_1 = PhotoImage(
-    file=relative_to_assets("button_hover_5.png"))
+#Sign IN    
+    button_image_hover_1 = ctk.CTkImage(
+        light_image=Image.open(relative_to_assets("button_hover_5.png")),
+        dark_image=Image.open(relative_to_assets("button_hover_5.png")),
+        size=(167, 39)
+    )
 
     def button_1_hover(e):
         button_1.configure(
@@ -255,11 +266,34 @@ def TopMenu(window, canva):
 
     button_1.bind('<Enter>', button_1_hover)
     button_1.bind('<Leave>', button_1_leave)
-    framev = ['frame_1','frame_2','frame_3','frame_4'] 
+
+
+    global hover_image_list
+    hover_image_list = [button_image_hover_explore,
+                  button_image_hover_manage,
+                  button_image_hover_experience,
+                  button_image_hover_destinations,]
+    global button_list
+    button_list = [button_4,
+                   button_5,
+                   button_6,
+                   button_7,]
+    global button_image_list
+    button_image_list = [button_image_4,
+                         button_image_5,
+                         button_image_6,
+                         button_image_7,]
+
+    framev = ['frame_1','frame_2','frame_3','frame_4']
+    global frames
     frames = []
     colors = ['#0B041B','#26294F','#CCD09F','green','brown']
-    
-    
+
+    global frame_bool_list
+    frame_bool_list = []
+    global my_y_list
+    my_y_list = []
+
     for i, v in enumerate(framev):
         v = ctk.CTkFrame(
                 window,
@@ -267,11 +301,14 @@ def TopMenu(window, canva):
                 height=420,
                 fg_color=colors[i],
                 border_width=1,
-                border_color='#CCD09F',#colors[i],
+                border_color='#CCD09F',
                 corner_radius=0
                 )
-        v.place(x=0,y=1004,)   
+        v.place(x=0,y=1004)   
         frames.append(v)
+        frame_bool_list.append(False)
+        my_y_list.append(1004)
+
     frame_inner_explore = ctk.CTkFrame(
                 frames[0],
                 width=1600,
@@ -281,13 +318,11 @@ def TopMenu(window, canva):
     frame_inner_explore.place(x=135, y=18)
     
 
-
-    #---------------------------=================================-----------------------------================================----------------#
     continents_explore(frames=frame_inner_explore)
 
     window.resizable(False, False)
-
-
+    #______________________________________________________________________________________________________________________________________#
+    
 
 
 global my_y
@@ -298,11 +333,28 @@ def up(frm):
 def down(frm):
         frm.place(x=0, y=my_y)
         #button_frame_1.configure(text=my_y)
-def btn(frm):
-    global my_y
-    if my_y > 93:        
-        my_y=93
-        frm.place(x=0, y=my_y)
-    elif my_y < 1004:      
-        my_y=1004
-        frm.place(x=0, y=my_y)
+def btn(frm, fv):
+    global frame_bool_list
+    global my_y_list
+    if frame_bool_list[fv] == False:
+        frame_bool_list[fv]=True
+        if my_y_list[fv] > 93:        
+            my_y_list[fv]=93
+            frm.place(x=0, y=my_y_list[fv])
+            button_list[fv].configure(image=hover_image_list[fv])
+        
+
+        for i, each in enumerate(frame_bool_list):
+            if i == fv:
+                pass
+            else:
+                if each == True:
+                    frames[i].place(x=0, y=1004)
+                    button_list[i].configure(image=button_image_list[i])
+                    frame_bool_list[i] =False
+
+    elif frame_bool_list[fv] == True:
+        frame_bool_list[fv] =False
+        if my_y_list[fv] < 1004:      
+            my_y_list[fv]=1004
+            frm.place(x=0, y=my_y_list[fv])
