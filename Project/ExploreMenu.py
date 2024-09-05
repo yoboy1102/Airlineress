@@ -8,11 +8,12 @@ from pathlib import Path
 from tkinter import ttk
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import customtkinter as ctk
-import time
+import time 
 #app = ctk.CTk()
 #app.geometry('1900x800')
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"E:\user data\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+
 
 def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
