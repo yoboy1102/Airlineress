@@ -9,7 +9,7 @@ from ExploreMenu import continents_explore
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"E:\user data\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -342,6 +342,7 @@ def btn(frm, fv):
             my_y_list[fv]=93
             frm.place(x=0, y=my_y_list[fv])
             button_list[fv].configure(image=hover_image_list[fv])
+            
         
 
         for i, each in enumerate(frame_bool_list):
@@ -349,12 +350,17 @@ def btn(frm, fv):
                 pass
             else:
                 if each == True:
-                    frames[i].place(x=0, y=1004)
+                    my_y_list[i]=1004
+                    frames[i].place(x=0, y=my_y_list[i])
                     button_list[i].configure(image=button_image_list[i])
-                    frame_bool_list[i] =False
+                    frame_bool_list[i] = False
+                    button_list[i].configure(text=my_y_list[i])
+                    print(frame_bool_list[i])
 
     elif frame_bool_list[fv] == True:
-        frame_bool_list[fv] =False
+        frame_bool_list[fv] = False
         if my_y_list[fv] < 1004:      
             my_y_list[fv]=1004
             frm.place(x=0, y=my_y_list[fv])
+    button_list[fv].configure(text=my_y_list[fv])
+    print(frame_bool_list[fv])
