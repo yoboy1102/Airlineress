@@ -14,7 +14,7 @@ from tkcalendar import Calendar
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"E:\user data\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -596,7 +596,5 @@ Book_Frame_Attributes = {
                      5 : ('destinations', ''),
                        6 : ('sign/log', ''),
 }
-
-
 
 web.mainloop()
