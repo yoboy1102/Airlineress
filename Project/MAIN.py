@@ -1,4 +1,4 @@
-#figd_nLghGDLAXTFp9eS3-_JWIiJGCAK9nL3sb1uZshxp
+
 import customtkinter as ctk
 #from customtkinter import *
 from tkinter import *
@@ -14,7 +14,7 @@ from tkcalendar import Calendar
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0, #figd_nLghGDLAXTFp9eS3-_JWIiJGCAK9nL3sb1uZshxp")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
