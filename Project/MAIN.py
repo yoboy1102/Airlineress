@@ -14,7 +14,7 @@ from tkcalendar import Calendar
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0, #figd_nLghGDLAXTFp9eS3-_JWIiJGCAK9nL3sb1uZshxp")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -120,7 +120,7 @@ def departure_page():
     DepartuePage(web)
 
 
-TopMenu(web, canvas)   
+TopMenu(web, canvas, 88)   
 
 #Tab View  ----------------------------------------------------------------------------------------------------------
 bookframe = ctk.CTkFrame(
