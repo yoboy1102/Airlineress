@@ -6,6 +6,7 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from ExploreMenu import continents_explore
+from LogInSignUp import LogIn_SignUp
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -14,7 +15,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kam
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def TopMenu(window, canva):
+def TopMenu(window, canva, yy):
     canva.create_rectangle(
         0.0,
         1.0,
@@ -37,7 +38,7 @@ def TopMenu(window, canva):
         hover_color='#0B041B',
         border_color='#0B041B',
         #highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: LogIn_SignUp(window),
         #relief="flat",
         width=167.0,
         height=34.0
@@ -67,7 +68,7 @@ def TopMenu(window, canva):
     )
     button_2.place(
      x=95.0,
-      y=88,   
+      y=yy,   
     )
 #logo
     button_image_3 = ctk.CTkImage(light_image=Image.open(relative_to_assets("button_3.png")),
@@ -85,7 +86,7 @@ def TopMenu(window, canva):
         command=lambda: print("button_3 clicked"),
         #relief="flat"
         width=100.0,
-        height=91.0
+        height=90
     )
     button_3.place(
         x=95.0,
@@ -169,8 +170,6 @@ def TopMenu(window, canva):
         bg_color='#0B041B',
         hover_color='#0B041B',
         border_color='#0B041B',
-        #highlightthickness=0,
-        #relief="flat"
         width=140,
         height=57,
         command = lambda :btn(frm=frames[3], fv=3)
@@ -179,7 +178,6 @@ def TopMenu(window, canva):
         x=735.0,
         y=16.0
     )
-
 
 #Experience
     button_image_hover_experience = ctk.CTkImage(
@@ -253,36 +251,24 @@ def TopMenu(window, canva):
         light_image=Image.open(relative_to_assets("button_hover_5.png")),
         dark_image=Image.open(relative_to_assets("button_hover_5.png")),
         size=(167, 39)
-    )
-
+)
     def button_1_hover(e):
-        button_1.configure(
-            image=button_image_hover_1
-        )
+        button_1.configure(image=button_image_hover_1)
+
     def button_1_leave(e):
-        button_1.configure(
-            image=button_image_1
-        )
+        button_1.configure(image=button_image_1)
 
     button_1.bind('<Enter>', button_1_hover)
     button_1.bind('<Leave>', button_1_leave)
 
+    global hover_image_list, button_image_list, button_list
 
-    global hover_image_list
-    hover_image_list = [button_image_hover_explore,
-                  button_image_hover_manage,
-                  button_image_hover_experience,
-                  button_image_hover_destinations,]
-    global button_list
-    button_list = [button_4,
-                   button_5,
-                   button_6,
-                   button_7,]
-    global button_image_list
-    button_image_list = [button_image_4,
-                         button_image_5,
-                         button_image_6,
-                         button_image_7,]
+    hover_image_list = [button_image_hover_explore, button_image_hover_manage, button_image_hover_experience, 
+                        button_image_hover_destinations,]
+    
+    button_list = [button_4, button_5, button_6, button_7,]
+
+    button_image_list = [button_image_4, button_image_5, button_image_6,button_image_7,]
 
     framev = ['frame_1','frame_2','frame_3','frame_4']
     global frames
@@ -316,10 +302,8 @@ def TopMenu(window, canva):
                 fg_color=colors[0]
                 )
     frame_inner_explore.place(x=135, y=18)
-    
 
     continents_explore(frames=frame_inner_explore)
-
     window.resizable(False, False)
     #______________________________________________________________________________________________________________________________________#
     
@@ -327,12 +311,6 @@ def TopMenu(window, canva):
 
 global my_y
 my_y = 1004
-def up(frm):
-        frm.place(x=0, y=my_y)
-        #button_frame_1.configure(text=my_y)
-def down(frm):
-        frm.place(x=0, y=my_y)
-        #button_frame_1.configure(text=my_y)
 def btn(frm, fv):
     global frame_bool_list
     global my_y_list
@@ -354,13 +332,10 @@ def btn(frm, fv):
                     frames[i].place(x=0, y=my_y_list[i])
                     button_list[i].configure(image=button_image_list[i])
                     frame_bool_list[i] = False
-                    button_list[i].configure(text=my_y_list[i])
-                    print(frame_bool_list[i])
 
     elif frame_bool_list[fv] == True:
         frame_bool_list[fv] = False
         if my_y_list[fv] < 1004:      
             my_y_list[fv]=1004
             frm.place(x=0, y=my_y_list[fv])
-    button_list[fv].configure(text=my_y_list[fv])
-    print(frame_bool_list[fv])
+    
