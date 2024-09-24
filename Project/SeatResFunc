@@ -1,0 +1,82 @@
+#SeatResFunc
+from pathlib import Path
+import customtkinter as ctk
+import csv
+OUTPUT_PATHS = Path(__file__).parent
+ASSETS_PATHS = OUTPUT_PATHS / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\Project")
+
+def relative_to_asset(paths: str) -> Path:
+    return ASSETS_PATHS / Path(paths)
+
+def CB(p, q, er):
+    print(p,q)
+class SeatResFunc():
+    def __init__(self, m, n, eco_buss, CBcheck_val, fff, ww, er):
+        self.let_list = []
+        with open(relative_to_asset('LETTER.csv'), 'r') as cc:
+            #cc= open(relative_to_assets("LETTER.csv"), 'r')
+            reader=csv.reader(cc)
+            next(reader)
+            for row in reader:
+                    self.let_list.append(row)
+            #print(self.let_list)
+        l, k=0, 0
+        self.ww=ww
+        self.hh = ww+10
+        self.er = er
+        for i in range(m):
+            self.ff=0
+            v = []
+            self.let_new = self.let_list[0:n]
+            self.let_new.insert(int(n/2), '    ')
+            #print(self.let_new)
+            pdx=2
+            for j in range(n):
+                
+                self.var = ctk.IntVar(eco_buss)  
+                self.ff+=fff
+                if i==0:
+                    self.le_lbll =  ctk.CTkLabel(eco_buss,
+                                        text=self.let_new[int(self.ff-1)], font=('georgia', 14, 'bold'),
+                                        #text_color=''
+                                        )
+                    self.le_lbll.grid(row=i, column=int(self.ff-1), sticky='s')
+                #print(ff, int(ff), int(ff-1))
+                self.radd = ctk.CTkCheckBox(eco_buss,
+                                    corner_radius=8, fg_color='#3DCCB2', text=None,
+                                    variable=self.var,
+                                    textvariable=None, 
+                                    #onvalue=None,
+                                    border_color='#3DCCB2', checkbox_height=self.hh, checkbox_width=ww,
+                                    height=20, width=0, command=lambda i=i, j=j: CBcheck_val(i, j, self.er))
+                #vED5E7A
+                self.radd.grid(row=i+1, column=int(self.ff-1), padx=pdx, pady=10, sticky='w')
+                l+=1 
+                pdx=0 
+                  
+                v.append(self.radd)
+            self.n0_lbll = ctk.CTkLabel(eco_buss, text=str(i+1)+'  ',font=('georgia', 14, 'bold'))
+            self.n0_lbll.grid(row=i+1, column=int(n/2))
+
+            self.emp_label = ctk.CTkLabel(eco_buss, text=self.let_new[int(n/2)])
+            self.emp_label.grid(row=0, column=(int(n/2)))
+
+            self.er.append(v)
+            #eco_rad.append(k)
+            k+=1
+
+'''web = ctk.CTk()
+eco_buss = []
+eco_rad=[]
+for i in range(3):
+    v = ctk.CTkFrame(web,
+                           width=185-8, height=250,
+                           corner_radius=25,
+                           fg_color='white',
+                           bg_color='transparent',
+                           )
+    v.grid(row=i, column=0, padx=4, pady=20)
+    eco_buss.append(v)
+SeatResFunc(6, 4, eco_buss[0], CB, 1.4, 33, eco_rad)
+SeatResFunc(8, 6, eco_buss[1], CB, 1.3, 26, eco_rad)
+web.mainloop()'''
