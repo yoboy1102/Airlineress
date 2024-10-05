@@ -1,13 +1,11 @@
 #figd_nLghGDLAXTFp9eS3-_JWIiJGCAK9nL3sb1uZshxp
 import customtkinter as ctk
-#from customtkinter import *
+from customtkinter import *
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from pathlib import Path
-from tkinter import Canvas
-from tkinter import PhotoImage
-from Homepage import HomePage
+from tkinter import Canvas, PhotoImage
 from TopMenu import TopMenu
 from Departure import DepartuePage
 from Spinbox import FloatSpinbox
@@ -93,23 +91,19 @@ def pass_frame_place(frm):
         my_y_pass=1004
         frm.place(x=643, y=my_y_pass)
 
-global my_y_cal
-global my_x_book
-my_y_cal = 400
-my_x_book = 630
+global my_y_cal, my_x_book
+my_y_cal,my_x_book = 400, 630
 def calendar_date():
     global my_y_cal
     global my_x_book
     if my_y_cal == 400 and my_x_book == 630:
-        my_y_cal = 47 
-        my_x_book = 400
+        my_y_cal, my_x_book = 47, 400
         cal_frame.place(x=610, y=my_y_cal)
         booking_button.place(x=my_x_book, y=220)
         departure_date.configure(text='DD/MM/YYYY', text_color='grey',font=('Georgia', 11, 'bold'))
         return_date.configure(text='DD/MM/YYYY', text_color='grey',font=('Georgia', 11, 'bold'))
     elif my_y_cal == 47 and my_x_book == 400:
-        my_y_cal = 400
-        my_x_book = 630
+        my_y_cal, my_x_book = 400, 630
         cal_frame.place(x=610, y=my_y_cal)
         booking_button.place(x=my_x_book, y=220)
         departure_date.configure(text='Departure date -->', text_color='#A6ACAC',font=('Georgia', 12))
@@ -117,31 +111,35 @@ def calendar_date():
 
 
 def departure_page():
-    DepartuePage(web)
+    ccc, dd=0, []
+    for i in range(2):
+        if entries_home[i].get() == '':
+            ccc+=1
+            break
+        else:
+            dd.append(entries_home[i].get())
+            continue
+    if ccc==0:
+        DepartuePage(web, dd)
+    else:
+        messagebox.showerror('', 'Details not filled')
 
 
 TopMenu(web, canvas, 88)   
 
 #Tab View  ----------------------------------------------------------------------------------------------------------
-bookframe = ctk.CTkFrame(
-    web,
-    corner_radius=15,
-    width=1300,
-    height=400,
-    fg_color='#0B041B',
+bookframe = ctk.CTkFrame(web,
+    corner_radius=15, width=1300, height=400, fg_color='#0B041B',
     bg_color='green' 
 )
 bookframe.place(x=150,y=567)
 
-hometab = ctk.CTkTabview(
-     bookframe,
-     width=880,
-     height=340,
+hometab = ctk.CTkTabview(bookframe,
+     width=880, height=340,
      corner_radius=7,
      fg_color=('#0B031A','#26294F'),
      bg_color=('#0B031A','#26294F'),
-     border_color=('#0B031A','#26294F'),
-     border_width= 0,
+     border_color=('#0B031A','#26294F'),border_width= 0,
      segmented_button_fg_color=('#0B031A','#26294F'),
      segmented_button_selected_color=('#0B031A','#26294F'),
      segmented_button_selected_hover_color=('#0B031A','#26294F'),
@@ -173,16 +171,12 @@ radiovar = ctk.StringVar(web,value='')
 
 for i,v in enumerate(radioname):
      v = ctk.CTkRadioButton(hometab.tab(hometablist[0]),
-                             text=radioname[i],
-                             text_color='white',
-                             variable=radiovar,
-                             font=('Arial', 16, 'bold'),
-                             border_width_checked=4,
-                             border_width_unchecked=2,
-                             border_color='#26294F',
-                             fg_color='#26294F',
-                             hover_color='#26294F',
-                             command=None)
+                    text=radioname[i], text_color='white', 
+                    variable=radiovar, font=('Arial', 16, 'bold'),
+                    border_width_checked=6,border_width_unchecked=2,
+                    border_color='#26294F',fg_color='#26294F',
+                    hover_color='#26294F', command=None
+                    )
      if i == 0:
         v.select(1)
         v.configure(command=oneway_arr)
@@ -198,25 +192,17 @@ entries_home = []
 
 for i, v in enumerate(entryname_home):
     v = ctk.CTkEntry(hometab.tab(hometablist[0]),
-                           width=250,
-                           height=50,
-                           fg_color='#26294F',
-                           bg_color='#0B041B',
-                           border_color='black',
-                           border_width=4,
-                           corner_radius=8,
-                           placeholder_text=entryname_home[i],
-                           )
+                width=250, height=50, fg_color='#26294F', bg_color='#0B041B',
+                border_color='black', border_width=4, corner_radius=8,
+                placeholder_text=entryname_home[i],
+                text_color='white',
+                )
     v.grid(row=2, column=i, padx=30, pady=20, sticky='w')
     entries_home.append(v)
 
 pass_frame = ctk.CTkFrame(hometab.tab(hometablist[0]),
-                          fg_color='#26294F',
-                          border_color='black',
-                          border_width=5,
-                          corner_radius=15,
-                          width=122,
-                          height=155
+                fg_color='#26294F', border_color='black', border_width=5,
+                          corner_radius=15, width=122, height=155
                          )
 pass_frame.place(x=0, y=1004)
 
@@ -225,24 +211,13 @@ button_image_pass = ctk.CTkImage(
     dark_image=Image.open(relative_to_assets("button_9.png")),
     size = (122, 18))
 button_pass = ctk.CTkButton(hometab.tab(hometablist[0]),
-    image=button_image_pass,
-    #borderwidth=0,
-    #highlightthickness=0,
+    image=button_image_pass, text='', 
     command=lambda :pass_frame_place(pass_frame),
-    #relief="flat",
-    width=122.0,
-    height=20.0,
-    border_width=2,
-    text='',
-    fg_color='transparent',
-    bg_color='#0B041B',
-    hover_color='#0B041B',
-    border_color='#A6ACAC',
+    width=122.0, height=20.0, border_width=2,
+    fg_color='transparent', bg_color='#0B041B',
+    hover_color='#0B041B', border_color='#A6ACAC',
 )
-button_pass.place(
-    x=665,
-    y=11.0,
-)
+button_pass.place(x=665,y=11.0,)
 
 image_hover_pass = ctk.CTkImage(
     light_image=Image.open(relative_to_assets("button_hover_6.png")),
