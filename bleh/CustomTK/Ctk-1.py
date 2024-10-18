@@ -12,7 +12,7 @@ def relative_to_assets(path: str) -> Path:
 def tckt_dtls(window, x, y, w):
     emp_frame = CTkFrame(window, fg_color='grey', height=908, width=1240)
     emp_frame.place(x=0, y=0)
-    M_w = 1880-w
+    M_w = 1880-w            # ==> Just some calculated values, many more are there in upcoming lines
     M_frame = CTkFrame(window, 
                        width=M_w,
                        height=1000-92,
@@ -29,12 +29,11 @@ def tckt_dtls(window, x, y, w):
         frm_from_to.grid(row=f, column=0)
         frms_l.append(frm_from_to)
 
-    text_top=['DXB         GOA', 'DXB         G2A', 'DbB         GOA']
-    top_list=[]
+    text_top, top_list=['DXB         GOA', 'DXB         G2A', 'DbB         GOA'], []
     for i in range(3):
-        from_to = CTkLabel(frms_l[0],
+        from_to = CTkLabel(frms_l[0],       # ==> Top three frames
                         width=M_w/3,
-                        height=92+30,
+                        height=111,
                         fg_color='#1E1E1E',
                         text=text_top[i],
                         font=('gerogia', 20, 'bold'),
@@ -42,35 +41,35 @@ def tckt_dtls(window, x, y, w):
                         )
         from_to.grid(row=0, column=i)
         top_list.append(from_to)
-    ecbs_l, ec_bc_text = [], ['Economy', 'Business']
+
+    ecbs_l, ec_bc_text, ecbs_det_l = [], ['Economy', 'Business'], []
+
     for j in range(2):
-        ecbs_frm = CTkFrame(frms_l[1],
+        ecbs_frm = CTkFrame(frms_l[1],                              # ==> The two class
                                 width=M_w/2,
                                 height=(1000-92)-((92+40)*2),
                                 fg_color='#1E1111',
                                 )
         ecbs_frm.grid(row=0 , column=j)
-        ecbs_l.append(ecbs_frm)
+        ecbs_l.append(ecbs_frm)                     # ==> List from where you can acces the frame using indexing 
+
+
         ecbs_img = CTkImage(light_image=Image.open(relative_to_assets(ec_bc_text[j]+' Seats.png')),
                                 dark_image=Image.open(relative_to_assets(ec_bc_text[j]+' Seats.png')),
-                                size=(M_w/2.3, 150))
-        ecbs_seat_label = CTkLabel(ecbs_frm,
-                                       image=ecbs_img, text=''
-                                       )
-        ecbs_seat_label.pack(pady=25, padx=((M_w/2)-(M_w/2.3))/2)
+                                size=(M_w/2.3, 155))
+        ecbs_seat_label = CTkLabel(ecbs_frm, image=ecbs_img, text='')    # ==> Seat images
+        ecbs_seat_label.pack(pady=20, padx=((M_w/2)-(M_w/2.3))/2)
 
-        ecbs_det_frm = CTkFrame(ecbs_frm,
-                               width=M_w/2.3,
-                               height=(1000-92)-(((92+40)*2)+(150+25+10)),
-                               fg_color='black'
-                                )
+        ecbs_det_frm = CTkFrame(ecbs_frm,                       # ==> Information Frame
+                               width=M_w/2.3, fg_color='black',
+                               height=(1000-92)-(((92+30)*2)+(155+20+10)),
+                            )
         ecbs_det_frm.pack(pady=5)
+        ecbs_det_l.append(ecbs_det_frm)         # ==> List from where you can acces the info frame using indexing
+    frms_l[-1].configure(fg_color='#2E2E2E')
 
-    frms_l[-1].configure(fg_color='#1EEE1F')
- 
 web=ctk.CTk()
 web.geometry("1880x908")
 web.configure(bg = "#FCFFDD")
 tckt_dtls(web,0, 0, 1200)
 web.mainloop()
-
