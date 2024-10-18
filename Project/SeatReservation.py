@@ -13,7 +13,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kam
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path) 
 
-def SeatRes(window):
+def SeatRes(window, list_no_pass, count_pass):
 
     def CBcheck_val(bools, p, q, er, alph, n__0, clrr):
         print(len(er))
@@ -27,7 +27,7 @@ def SeatRes(window):
                         print(i, i.get())
                         print('a')
                         pass
-                    elif i!= er[p][q]:
+                    elif i!= er[p][q] and i.cget("state")=='normal':
                         if i.get() == 1:
                             print(i, i.get())
                             i.deselect()
@@ -62,24 +62,33 @@ def SeatRes(window):
                            fg_color='#EAEBFF', bg_color='#EAEBFF',)
     all_frm.place(x=s_frm_w/2.748, y=559)
     eco_buss, w_h = [], [312, 420, 470]
-    xv = 0
-    for i in range(3):
 
-        v = ctk.CTkFrame(all_frm,
-                           width=185-8, height=w_h[i],
-                           corner_radius=25, fg_color='white',
-                           bg_color='transparent',
-                           )
-        v.grid(row=i+xv, column=0, padx=4, pady=20)
-        eco_buss.append(v)
-        xv=1   
-    buss_rad, eco_rad, ecoradd = [], [], []
+    exit_row_img = ctk.CTkImage(light_image=Image.open(relative_to_assets(r'Exit row.png')),
+                            dark_image=Image.open(relative_to_assets(r'Exit row.png')),
+                            size=(200, 20)) 
+
+    for i in range(3*2):
+        if i%2==0:
+            v = ctk.CTkFrame(all_frm,
+                            width=185-8, height=w_h[i//2],
+                            corner_radius=25, fg_color='white',
+                            bg_color='transparent',
+                            )
+            v.grid(row=i, column=0, padx=4, pady=3)
+            eco_buss.append(v)
+        else:
+            v = ctk.CTkLabel(all_frm,
+                            image=exit_row_img, text='')
+            v.grid(row=i, column=0, padx=4, pady=0, sticky='w')
+
+
+    bus_rad, eco_rad, ecoradd = [], [], []
     bus_clr, eco_clr = ['#3DCCB2', '#84FFE9'],  ['#5E7FDE', '#9FC9FF'], #['#ED5B80', '#F6C0CF'],
-    SeatResFunc(1, 7, 4, eco_buss[0], CBcheck_val, 1.4, 36, buss_rad, [3,8,11], bus_clr)
-    SeatResFunc(2, 11, 6, eco_buss[1], CBcheck_val, 1.3, 28, eco_rad, [2,2,10], eco_clr)
-    SeatResFunc(3, 14, 6, eco_buss[2], CBcheck_val, 1.3, 28, ecoradd, [2,2,10], eco_clr)
+    SeatResFunc(1, 7, 4, 4,  eco_buss[0], CBcheck_val, 1.4, 36, bus_rad, [3,8,11], bus_clr)
+    SeatResFunc(2, 11, 6, 0, eco_buss[1], CBcheck_val, 1.3, 28, eco_rad, [2,2,10], eco_clr)
+    SeatResFunc(3, 14, 6, 0, eco_buss[2], CBcheck_val, 1.3, 28, ecoradd, [2,2,10], eco_clr)
     TopMenu(window, canvas_2, -50) 
-web=ctk.CTk()
+'''web=ctk.CTk()
 web.geometry('1880x1000')
 SeatRes(web)
-web.mainloop()
+web.mainloop()'''
