@@ -18,7 +18,7 @@ def relative_to_assets(path: str) -> Path:
 def TopMenu(window, canva, yy):
     canva.create_rectangle(
         0.0,
-        1.0,
+        0.0,
         1880.0,
         92.0,
         fill="#0B031A",
