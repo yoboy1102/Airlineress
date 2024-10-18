@@ -1,12 +1,11 @@
 #Departure
 
 import customtkinter as ctk
-import PIL
 from PIL import Image, ImageTk
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from ExploreMenu import continents_explore
+from tkinter import Canvas
 from TopMenu import TopMenu
+from PassengerDetails import PassDetails
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
 
@@ -16,111 +15,78 @@ def relative_to_assets(path: str) -> Path:
 basic_text = '''\n\n\t# Free Food\t\t\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n# Free Food\n'''
 basic_text_b = ['''# Free Food\nfre''', '']
 
-def DepartuePage(window):
-    global one_zero_bool_list
+def DepartuePage(window, fromto, listno_pass):
+    global ozbool_list
     bvartt = 6
-    border_color_ = ['black', 'green', 'red', 'blue', 'grey', 'bwown']
-    one_zero_bool_list = []
-    bussiness_opt = ['Basic', 'Value', 'Comfort', 'Deluxe', 'Prime']
-    font_radio = ctk.CTkFont('Georgia', 16, 'bold')
+    b_c, b_opt = ['black', 'green', 'red', 'blue', 'grey', 'grey'], ['Basic', 'Value', 'Comfort', 'Deluxe', 'Prime']
+    ozbool_list, font_radio  = [], ctk.CTkFont('Georgia', 16, 'bold')
     list_d = [1,3,5,7,9,11,13]
     for i in range(bvartt):
-        one_zero_bool_list.append(0)
+        ozbool_list.append(0)
+
+    def passdetails():
+
+        PassDetails(window, listno_pass, 1)
+
     def rad_command(hhv, vhh):
         test_list[3][hhv].configure(command = lambda: rad_select(hhv, vhh))
 
-    def border_highlight(kj):
-        test_list[1][kj].select()
-        test_list[2][kj].configure(border_width=2)
-        for k in range(4):
-            pass
-
     def rad_select(hhv, vhh):
-        test_list[1][vhh].select()
-        '''if hhv%2!=0:
-            kj=hhv-1
-            print('by')
-        elif hhv%2==0:
-            kj=hhv
-            print('hi')
-        test_list[2][kj].configure(border_width=3)
-        for i in range(4):
-            if i == kj:
-                pass
-            else:
-                test_list[2][i].configure(border_width=1)'''
-        
+        test_list[1][vhh].select()        
         print(hhv, vhh)
         
 #282829
     def test(c, d):
-        global test_list
-        global one_zero_bool_list
-        if one_zero_bool_list[d]==0:
+        global test_list, ozbool_list
+        if ozbool_list[d]==0:
             test_list = []
             for i in range(6):
                 k=[]
                 test_list.append(k)
             
-            print('ini', one_zero_bool_list[d])
-            one_zero_bool_list[d]=1
-            print('exi', one_zero_bool_list[d])
+            print('ini', ozbool_list[d])
+            ozbool_list[d]=1
+            print('exi', ozbool_list[d])
 
             radiovar = ctk.StringVar(window,value='')
-            frame_size_rad_h = 315
-            frame_size_rad_w = 215
-            c_radius = 15
-            b_width = 2
-            ij = 0
+            f_sz_rad_h, f_sz_rad_w = 315, 215
+            b_w, ij, c_r = 2, 0, 15
             
-            h=ctk.CTkFrame(
-                        listlist[d][6],
-                        height=frame_size_rad_h+6,
-                        width=frame_size_rad_w-70,
-                        border_color=border_color_[i],
-                        fg_color='transparent',
-                        #fg_color=border_color_[1],
-                        #border_width=b_width,
-                        corner_radius=10,
-                    )
+            h=ctk.CTkFrame(listlist[d][6],
+                    height=f_sz_rad_h+6, width=f_sz_rad_w-70,
+                    border_color=b_c[i], fg_color='transparent', corner_radius=10,
+                )
             h.grid(row=0, column=5, pady=12, padx=8, sticky='')
+
             h_curr_button_font = ctk.CTkFont('Georgia', 14, 'bold', 'italic')
-            h_curr_button = ctk.CTkButton(
-                h,
-                text='Currency Selector',
-                fg_color='transparent',
-                bg_color='transparent',
-                corner_radius=9,
-                border_color='white',
-                border_width=2,
-                state='Disabled',
-                hover=False,
-                font=h_curr_button_font,
+            h_curr_button = ctk.CTkButton(h,
+                text='Currency Selector', fg_color='transparent', hover=False, 
+                corner_radius=9, border_color='white', border_width=2, state='Disabled',
+                font=h_curr_button_font, bg_color='transparent',
             )
+#______________________________________________________________________________________________________________________#            
             h_curr_button.grid(row=0, column=0, sticky='ew', pady=5)
             h_emp = ctk.CTkLabel(h)
             h_emp.grid(row=1, column=0, sticky='s', pady=72)
+#______________________________________________________________________________________________________________________#   
             total_value_label_font = ctk.CTkFont('Georgia', 16, 'bold', 'italic', underline='False')
             total_value_label = ctk.CTkLabel(
                 h,
                 text='Total Value',
                 font=total_value_label_font,
-                width=frame_size_rad_w-70,
-                height=frame_size_rad_h/8,
+                width=f_sz_rad_w-70,
+                height=f_sz_rad_h/8,
                 corner_radius=10,
                 text_color='white'
             )
             total_value_label.grid(row=2, column=0, sticky='S')
             
-            
-            #h_frame.place(frame_size_rad_h-(frame_size_rad_h/5))
-            
             h_frame = ctk.CTkFrame(
                 h,
                 border_color='white',
                 border_width=1,
-                height = frame_size_rad_h/4,
-                width=frame_size_rad_w-70,
+                height = f_sz_rad_h/4,
+                width=f_sz_rad_w-70,
                 fg_color='transparent',
                 bg_color='transparent',
                 corner_radius=10
@@ -133,8 +99,8 @@ def DepartuePage(window):
                 h_frame,
                 text=str(price_val),
                 font=h_label_font,
-                width=frame_size_rad_w-70,
-                height=frame_size_rad_h/10,
+                width=f_sz_rad_w-70,
+                height=f_sz_rad_h/10,
                 corner_radius=10,
                 text_color='white'
 
@@ -146,8 +112,8 @@ def DepartuePage(window):
                 h_frame,
                 text='AED',
                 font=h_curr_font,
-                width=frame_size_rad_w-70,
-                height=frame_size_rad_h/10,
+                width=f_sz_rad_w-70,
+                height=f_sz_rad_h/10,
                 corner_radius=10,
                 text_color='white'
 
@@ -158,12 +124,11 @@ def DepartuePage(window):
             for i in range(4):
                 q_border=ctk.CTkFrame(
                         listlist[d][6],
-                        height=frame_size_rad_h+8,
-                        width=frame_size_rad_w+4,
-                        border_color=border_color_[i],
+                        height=f_sz_rad_h+8,
+                        width=f_sz_rad_w+4,
+                        border_color=b_c[i],
                         fg_color='transparent',
-                        #fg_color=border_color_[i+1],
-                        border_width=b_width,
+                        border_width=b_w,
                         corner_radius=10,
                     )
                 q_border.grid(row=0, column=i+1, pady=10, padx=10)
@@ -171,14 +136,12 @@ def DepartuePage(window):
                 q = ctk.CTkFrame(
                     q_border,
                     #listlist[d][6],
-                    height=frame_size_rad_h,
-                    width=frame_size_rad_w,
-                    border_color=border_color_[i+1],
+                    height=f_sz_rad_h,
+                    width=f_sz_rad_w,
+                    border_color=b_c[i+1],
                     border_width=0,
                     fg_color='transparent',
-                    #fg_color=border_color_[i+1],
-                    #border_width=b_width,
-                    corner_radius=c_radius,
+                    corner_radius=c_r,
                     
                 )
                 #q.grid(row=0, column=i, pady=10, padx=10)
@@ -188,10 +151,10 @@ def DepartuePage(window):
                     
                     rad = ctk.CTkButton(
                         q,
-                        height=frame_size_rad_h-2,
-                        width=frame_size_rad_w/2-2,
+                        height=f_sz_rad_h-2,
+                        width=f_sz_rad_w/2-2,
                         fg_color='transparent',
-                        corner_radius=c_radius,
+                        corner_radius=c_r,
                         text=basic_text_b[j],
                         text_color='#CCD09F',
                         hover=False,
@@ -219,7 +182,7 @@ def DepartuePage(window):
 
                 radio_button = ctk.CTkRadioButton(
                     radio_frame,
-                    text=bussiness_opt[i],
+                    text=b_opt[i],
                     text_color='white',
                     variable=radiovar,
                     font=font_radio
@@ -241,8 +204,8 @@ def DepartuePage(window):
                 
             #test_list[3][0].configure(command = lambda: test_list[1][0].select())
                 
-        elif one_zero_bool_list[d]==1:
-            one_zero_bool_list[d]=0
+        elif ozbool_list[d]==1:
+            ozbool_list[d]=0
             test_list=[[],[],[],[]]
             
             listlist[d][6].destroy()
@@ -289,14 +252,14 @@ def DepartuePage(window):
         border_width=1,
         bg_color='#1E1E1E',
                 )
-    main_frame_ticket.place(x=218, y=522)
+    main_frame_ticket.place(x=200, y=522)
 
     buttonsss_fonta = ctk.CTkFont('Georgia', 18, weight='bold', underline=True)
     buttonsss_fontb = ctk.CTkFont('Felix titling', 12, weight='bold', underline=False)
 
     '''________________________________________________, ___________________________________________________________
        '''
-    texta = f'GOI ________________________________________________________________ DXB\n5:00\t\t\t\t\t\t\t6:00'
+    texta = f'{fromto[0]} ________________________________________________________________ {fromto[1]}\n5:00\t\t\t\t\t\t\t6:00'
     textaa = f'\tGOI\t\t\t\tDXB\n\t5:00    \t\t\t\t\t\t       6:00'
     textb = f' From  500 '
     listlist = []
@@ -324,7 +287,6 @@ def DepartuePage(window):
             v[5],
             width=623,
             height=70,
-            #image=v[0],
             text=texta,
             font=buttonsss_fontb,
             text_color='#CCD09F',
@@ -360,15 +322,6 @@ def DepartuePage(window):
             v[ff].grid(row=0, column=i+1, padx=8, pady=3)
             ff=7
             
-            '''hour_label = ctk.CTkLabel(
-            buttonsss,
-            text="__________________________\n4 hours /Direct Flight ",
-            fg_color='transparent',
-            bg_color='black',
-            font=fontsst,
-            text_color='#CCD09F'
-            )
-            hour_label.place(x=190, y=16)'''
 
         hour_label = ctk.CTkLabel(
             v[1],
@@ -392,14 +345,15 @@ def DepartuePage(window):
         )
         v[6].grid(row=hh, column = 0, pady=0, padx=3, sticky='')
         hh+=1
-
-        #v[4].configure(command=lambda : test(c=1, d=k))
-
     
+    next_btn_font=ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
+    next_btn = ctk.CTkButton(window,width=170, height=50, corner_radius=10, border_width=7, hover=False,
+                             text_color='#D8EADF', border_color='Black', 
+                            bg_color='#1E1E1E', fg_color='#26294F' , font=next_btn_font,
+                             text = 'Continue =>', command=lambda :passdetails())
+    next_btn.place(x=1690, y=900)
 
     TopMenu(window, canvas_2, 88)
-    #web.mainloop
-
 
     listlist[0][4].configure(command=lambda : test(c=1, d=0))
     listlist[1][4].configure(command=lambda : test(c=1, d=1))
@@ -416,11 +370,17 @@ def DepartuePage(window):
 
 
 
-'''web = ctk.CTk()
+
+''''''''''''''''''
+'''
+web = ctk.CTk()
 ctk.set_appearance_mode('light')
 ctk.set_default_color_theme('dark-blue')
 web.geometry("1880x1000")
 web.configure(bg = "#FCFFDD")
-DepartuePage(web)
+DepartuePage(web, ['goa', 'dxb'], [4,5,1])
 
-web.mainloop()'''
+web.mainloop()
+'''
+''''''
+''''''''''''
