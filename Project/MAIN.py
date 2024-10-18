@@ -9,6 +9,7 @@ from tkinter import Canvas, PhotoImage
 from TopMenu import TopMenu
 from Departure import DepartuePage
 from Spinbox import FloatSpinbox
+from PassengerDetails import PassDetails
 from tkcalendar import Calendar
 
 OUTPUT_PATH = Path(__file__).parent
@@ -25,10 +26,8 @@ web.configure(bg = "#FCFFDD")
 
 canvas = Canvas(
     web,
-    bg = "#FCFFDD",
-    height = 1000,
-    width = 1880,
-    bd = 0,
+    bg = "#FCFFDD", height = 1000,
+    width = 1880, bd = 0,
     highlightthickness = 0,
     relief = "ridge"
 )
@@ -36,11 +35,9 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    940.0,
-    500.0,
+    940.0, 500.0,
     image=image_image_1
 )
-
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 def twoway_arr():
@@ -53,14 +50,9 @@ def twoway_arr():
     try:
         cal_tabview.add('Return')
         cal_ret = Calendar(cal_tabview.tab('Return'),
-                   selectmode='day',
-				   showweeknumbers=False,
-                    cursor="hand2",
-                    date_pattern= 'y-mm-dd',
-					borderwidth=0,
-                    year=2024,
-                    background='#26294F',
-                    selectbackground='#0B041B',
+                selectmode='day', showweeknumbers=False, year=2024,
+                cursor="hand2", date_pattern='y-mm-dd',borderwidth=0,
+                background='#26294F',selectbackground='#0B041B',
                     )
         cal_ret.place(x=5, y=9)
     except:
@@ -111,16 +103,21 @@ def calendar_date():
 
 
 def departure_page():
-    ccc, dd=0, []
+    ccc, dd, vv=0, [], []
+    for i in ages:
+        vv.append(i.get())
+
     for i in range(2):
-        if entries_home[i].get() == '':
-            ccc+=1
-            break
+        for j in range(10):
+            if entries_home[i].get() == ''*j:
+                ccc+=1
+                break
         else:
+            print(entries_home[i].get())
             dd.append(entries_home[i].get())
             continue
     if ccc==0:
-        DepartuePage(web, dd)
+        DepartuePage(web, dd, vv)
     else:
         messagebox.showerror('', 'Details not filled')
 
@@ -129,8 +126,7 @@ TopMenu(web, canvas, 88)
 
 #Tab View  ----------------------------------------------------------------------------------------------------------
 bookframe = ctk.CTkFrame(web,
-    corner_radius=15, width=1300, height=400, fg_color='#0B041B',
-    bg_color='green' 
+    corner_radius=15, width=1300, height=400, fg_color='#0B041B', bg_color='green' 
 )
 bookframe.place(x=150,y=567)
 
@@ -145,8 +141,7 @@ hometab = ctk.CTkTabview(bookframe,
      segmented_button_selected_hover_color=('#0B031A','#26294F'),
      segmented_button_unselected_color=('#26294F','#0B031A'),
      segmented_button_unselected_hover_color=('#26294F','#0B031A'),
-     text_color=('#CCD09F', '#666666')
-     
+     text_color=('#CCD09F', '#666666')    
 )
 hometab.pack()
 
@@ -160,12 +155,10 @@ for i, v in enumerate(hometablist):
 hometab.set('      Book a Flight     ')
 hometabcustomfont = ctk.CTkFont("Georgia", 20, 'bold')
 
-hometab._segmented_button.configure( corner_radius=7,
-                                     font=hometabcustomfont)
+hometab._segmented_button.configure( corner_radius=7, font=hometabcustomfont)
 
 #Booking Tab  ----------------------------------------------------------------------------------------------------------
-radioname=['One-way',
-           'Round Trip']
+radioname=['One-way', 'Round Trip']
 radiobuttons = []
 radiovar = ctk.StringVar(web,value='')
 
@@ -186,23 +179,21 @@ for i,v in enumerate(radioname):
         v.place(x=200,y=12)
      radiobuttons.append(v)
 
-entryname_home = ['From',
-             'To']
+entryname_home = ['From', 'To']
 entries_home = []
 
 for i, v in enumerate(entryname_home):
     v = ctk.CTkEntry(hometab.tab(hometablist[0]),
                 width=250, height=50, fg_color='#26294F', bg_color='#0B041B',
                 border_color='black', border_width=4, corner_radius=8,
-                placeholder_text=entryname_home[i],
-                text_color='white',
+                placeholder_text=entryname_home[i], text_color='white',
                 )
     v.grid(row=2, column=i, padx=30, pady=20, sticky='w')
     entries_home.append(v)
 
 pass_frame = ctk.CTkFrame(hometab.tab(hometablist[0]),
                 fg_color='#26294F', border_color='black', border_width=5,
-                          corner_radius=15, width=122, height=155
+                corner_radius=15, width=122, height=155
                          )
 pass_frame.place(x=0, y=1004)
 
@@ -254,12 +245,14 @@ for i in range(1):
     age_child_text = ctk.CTkLabel(pass_frame, width=20, height=20, text=' Children', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
     age_child_text.grid(row=1, column=0, padx=8,pady=10)
 
-    age_infant = FloatSpinbox(pass_frame, width=21, height=21,eheight=21,ewidth=25, step_size=1, set_size=0,)
-    age_infant.grid(row=2, column=1, padx=9,pady=10)
-    age_infant.set(0)
+    age_toddler = FloatSpinbox(pass_frame, width=21, height=21,eheight=21,ewidth=25, step_size=1, set_size=0,)
+    age_toddler.grid(row=2, column=1, padx=9,pady=10)
+    age_toddler.set(0)
 
-    age_infant_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Infants', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
-    age_infant_text.grid(row=2, column=0, padx=8,pady=10)
+    age_toddler_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Toddlers', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
+    age_toddler_text.grid(row=2, column=0, padx=8,pady=10)
+
+    ages = [age_adult, age_child, age_toddler]
 
 departure_date_img = ctk.CTkImage(
     light_image=Image.open(relative_to_assets("Label.png")),
@@ -273,64 +266,35 @@ calendar_date_img = ctk.CTkImage(
     )
 
 departure_date = ctk.CTkLabel(hometab.tab(hometablist[0]),
-                              image=departure_date_img,
-                              text='Departure date -->',
-                              text_color='#A6ACAC',
-                              font=('Georgia', 12),
-                              #bg_color='white',
-                              width=250,
-                              height=50,
-                              anchor='w'
+                image=departure_date_img, text='Departure date -->', text_color='#A6ACAC',
+                font=('Georgia', 12), width=250, height=50, anchor='w'
                               )
 departure_date.grid(row=3, column=0, padx=30, pady=15, sticky='w')
 
 calendar_date_d = ctk.CTkButton(hometab.tab(hometablist[0]),
-                              image=calendar_date_img,
-                              text='',
-                              fg_color='black',
-                              bg_color='#26294F',
-                              border_color='black',
-                              border_width=0,
-                              corner_radius=0,
-                              width=28,
-                              height=28,
-                              hover=False,
-                              command=calendar_date
+                              image=calendar_date_img, command=calendar_date,
+                              text='', fg_color='black', bg_color='#26294F', border_color='black',
+                              border_width=0, corner_radius=0, width=28, height=28, hover=False, 
                               )
 calendar_date_d.place(x=293, y=158)
 
 return_date = ctk.CTkLabel(hometab.tab(hometablist[0]),
-                              image=departure_date_img,
-                              text='Return date -->',
-                              text_color='#A6ACAC',
-                              font=('Georgia', 12),
-                              #bg_color='white',
-                              width=250,
-                              height=50,
-                              anchor='w'
+                image=departure_date_img, text='Return date -->', text_color='#A6ACAC',
+                font=('Georgia', 12), width=250, height=50, anchor='w'
                               )
 return_date.grid(row=3, column=1, padx=30, pady=15, sticky='w')
 
-cal_frame = ctk.CTkFrame(
-    hometab.tab(hometablist[0]),
-    #height=300,
-    #width=280,
-    bg_color='#0B041B',
-    fg_color='#0B041B'
-)
+cal_frame = ctk.CTkFrame(hometab.tab(hometablist[0]), bg_color='#0B041B', fg_color='#0B041B')
 cal_frame.place(x=69, y=400)
 
 dep_opt_font = ctk.CTkFont('Inter', 12, 'bold')
 ret_opt_font = ctk.CTkFont('Inter', 12, 'bold')
 
 cal_tabview = ctk.CTkTabview(cal_frame,
-     height=300,
-     width=250,                        
-     corner_radius=7,
+     height=300, width=250, corner_radius=7, border_width=0,
      fg_color=('#0B031A','#26294F'),
      bg_color=('#0B031A','#26294F'),
      border_color=('#26294F','#0B031A'),
-     border_width= 0,
      segmented_button_fg_color=('#26294F','#0B031A'),
      segmented_button_selected_color=('#0B031A','#26294F'),
      segmented_button_selected_hover_color=('#0B031A','#26294F'),
@@ -344,32 +308,19 @@ cal_tabview.add('Return')
 cal_tabview.set('Departure')
 
 cal_dep = Calendar(cal_tabview.tab('Departure'),
-                   selectmode='day',
-				   showweeknumbers=False,
-                    cursor="hand2",
-                    date_pattern= 'y-mm-dd',
-					borderwidth=0,
-                    year=2024,
-                    background='#26294F',
-                    selectbackground='#0B041B',
-                    )
+            selectmode='day', showweeknumbers=False,
+            cursor="hand2", date_pattern= 'y-mm-dd',
+            borderwidth=0, year=2024, background='#26294F',
+            selectbackground='#0B041B' )
 cal_dep.place(x=5, y=9)
 
-
 booking_button_font = ctk.CTkFont('Arial', 16, slant='italic' )
-booking_button = ctk.CTkButton(hometab.tab(hometablist[0]),
-                                        width=180,
-                                        height=40,
-                                        text='Search Flights',
-                                        text_color='#A6ACAC',
-                                        font=booking_button_font,
-                                        corner_radius=4,
-                                        border_width=4,
-                                        border_color='Black',
-                                        bg_color='#0B041B',
-                                        fg_color='#26294F',
-                                        hover=False,
-                                        command=departure_page)
+booking_button = ctk.CTkButton(hometab.tab(hometablist[0]),width=180,
+                    text='Search Flights', text_color='#A6ACAC', fg_color='#26294F',
+                    border_color='Black', bg_color='#0B041B', height=40,
+                    corner_radius=4, border_width=4, hover=False, 
+                    font=booking_button_font, command=departure_page
+                    )
 booking_button.place(x=630, y=220)
 
 def booking_hover_enter(e):
@@ -387,81 +338,45 @@ image_image_ar = ctk.CTkImage(
         dark_image=Image.open(relative_to_assets("Arrow_.png")),
         size=(42, 18)
         )
-image_ar = ctk.CTkLabel(hometab.tab(hometablist[0]),
-       # width=45,
-        #height=40,
-        text='',
-        image=image_image_ar
-        )
+image_ar = ctk.CTkLabel(hometab.tab(hometablist[0]), text='', image=image_image_ar)
 
 image_image_two = ctk.CTkImage(
         light_image=Image.open(relative_to_assets("Arrow.png")),
         dark_image=Image.open(relative_to_assets("Arrow.png")),
         size=(43, 27)
         )
-image_two = ctk.CTkLabel(hometab.tab(hometablist[0]),
-        text='',
-        
-        image=image_image_two
-        )
-
+image_two = ctk.CTkLabel(hometab.tab(hometablist[0]),text='',image=image_image_two)
 
 oneway_arr()
 
 #Manage booking Tab ----------------------------------------------------------------------------------------------------------
-manage_label_font = ctk.CTkFont('Georgia',
-                                18,
-                                underline=True,
-                                slant='italic')
-manage_label = ctk.CTkLabel(hometab.tab(hometablist[1]),
-                            text='Enter your booking details to manage your itinerary -->',
-                            text_color='#A6ACAC',
-                            font=manage_label_font,
-                            bg_color='#0B041B',
-                            fg_color='#0B041B')
+manage_label_font = ctk.CTkFont('Georgia', 18, underline=True, slant='italic')
+
+manage_label = ctk.CTkLabel(hometab.tab(hometablist[1]), fg_color='#0B041B',
+                    text='Enter your booking details to manage your itinerary -->',
+                    text_color='#A6ACAC', bg_color='#0B041B', font=manage_label_font,)
 manage_label.place(x=25, y=25)
 
 
-entryname_manage = ['Booking Reference No.',
-             'Last Name']
+entryname_manage = ['Booking Reference No.', 'Last Name']
 sticky_manage=['e','w']
 entries_manage = []
 
-
 for i, v in enumerate(entryname_manage):
     v = ctk.CTkEntry(hometab.tab(hometablist[1]),
-                           width=300,
-                           height=60,
-                           fg_color='#26294F',
-                           bg_color='#0B041B',
-                           border_color='black',
-                           border_width=6,
-                           corner_radius=8,
-                           placeholder_text=entryname_manage[i],
-                           )
+            width=300, height=60, border_width=6, corner_radius=8,
+            fg_color='#26294F', bg_color='#0B041B', border_color='black',
+            placeholder_text=entryname_manage[i],)
     v.place(x=50+(i*350), y=90)
     entries_manage.append(v)
 
-
-retrieve_booking_button_font = ctk.CTkFont('Georgia',
-                                           16,
-                                           'bold',
-                                           slant='italic')
+retrieve_booking_button_font = ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
 retrieve_booking_button = ctk.CTkButton(hometab.tab(hometablist[1]),
-                                        width=200,
-                                        height=50,
-                                        text='Retrieve Booking',
-                                        text_color='#A6ACAC',
-                                        font=retrieve_booking_button_font,
-                                        corner_radius=7,
-                                        border_width=7,
-                                        border_color='Black',
-                                        bg_color='#0B041B',
-                                        fg_color='#26294F',
-                                        hover=False,
-                                        command=service_not_available)
+                            width=200, height=50, corner_radius=7, border_width=7, hover=False,
+                            text='Retrieve Booking', text_color='#A6ACAC', border_color='Black', 
+                            bg_color='#0B041B', fg_color='#26294F',
+                            font=retrieve_booking_button_font, command=service_not_available)
 retrieve_booking_button.place(x=630, y=170)
-
 
 def retrieve_hover_enter(e):
     retrieve_booking_button_font.configure(slant='italic', underline=True)
@@ -473,53 +388,32 @@ def retrieve_hover_leave(e):
 retrieve_booking_button.bind('<Enter>', retrieve_hover_enter)
 retrieve_booking_button.bind('<Leave>', retrieve_hover_leave)
 
-
 #Check-in Tab  ----------------------------------------------------------------------------------------------------------
-
 
 check_label_font = ctk.CTkFont('Georgia', 18, underline=True, slant='italic')
 check_label = ctk.CTkLabel(hometab.tab(hometablist[2]),
-                            text='Online check-in opens 30 hours before your flight -->',
-                            text_color='#A6ACAC',
-                            font=check_label_font,
-                            bg_color='#0B041B',
-                            fg_color='#0B041B')
-
+                    text='Online check-in opens 30 hours before your flight -->',
+                    text_color='#A6ACAC', bg_color='#0B041B', fg_color='#0B041B',
+                    font=check_label_font,)
 check_label.place(x=25, y=25)
-entryname_checkin = ['Booking Reference No./Ticket No.',
-             'Last Name']
-sticky_checkin, entries_checkin=['e','w'],[]
 
+entryname_checkin = ['Booking Reference No./Ticket No.', 'Last Name']
+sticky_checkin, entries_checkin=['e','w'],[]
 
 for i, v in enumerate(entryname_checkin):
     v = ctk.CTkEntry(hometab.tab(hometablist[2]),
-                           width=300,
-                           height=60,
-                           fg_color='#26294F',
-                           bg_color='#0B041B',
-                           border_color='black',
-                           border_width=6,
-                           corner_radius=8,
-                           placeholder_text=entryname_checkin[i],
-                           )
+                width=300, height=60, border_width=6, corner_radius=8,
+                fg_color='#26294F', bg_color='#0B041B', border_color='black',
+                placeholder_text=entryname_checkin[i],)
     v.place(x=50+(i*350), y=90)
     entries_checkin.append(v)
 
-
 checkin_button_font = ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
 checkin_button = ctk.CTkButton(hometab.tab(hometablist[2]),
-                                        width=150,
-                                        height=50,
-                                        text='Check - In',
-                                        text_color='#A6ACAC',
-                                        font=checkin_button_font,
-                                        corner_radius=7,
-                                        border_width=7,
-                                        border_color='Black',
-                                        bg_color='#0B041B',
-                                        fg_color='#26294F',
-                                        hover = False,
-                                        command = service_not_available)
+                width=150, height=50, corner_radius=7, border_width=7, hover = False,
+                text='Check - In', text_color='#A6ACAC', border_color='Black',
+                bg_color='#0B041B', fg_color='#26294F',
+                command = service_not_available, font=checkin_button_font,)
 checkin_button.place(x=630, y=170)
 
 def checkin_hover_enter(e):
@@ -532,26 +426,15 @@ def checkin_hover_leave(e):
 checkin_button.bind('<Enter>', checkin_hover_enter)
 checkin_button.bind('<Leave>', checkin_hover_leave)
 
-
-
 disablecustomfont = ctk.CTkFont("Georgia", 19, 'bold', overstrike=True, slant='italic')
-flight_status_disabled = ctk.CTkButton(bookframe, 
-                                       width=196,
-                                       height=26,
-                                       text='Flight Status',
-                                       text_color='#CCD09F',
-                                       bg_color='#0B041B',
-                                       fg_color='#26294F',
-                                       hover=False,
-                                       font=disablecustomfont,
-                                       corner_radius=5,
-                                       state='normal',
-                                       command=service_not_available)
+flight_status_disabled = ctk.CTkButton(bookframe, text='Flight Status',
+                    text_color='#CCD09F', bg_color='#0B041B', fg_color='#26294F',
+                    state='normal', width=196, height=26, hover=False, corner_radius=5,
+                    command=service_not_available, font=disablecustomfont,
+                    )
 flight_status_disabled.place(x=658, y=13)
 
-
 #web.wm_attributes('-transparentcolor','green')
-
 #_____________________________________________________________________Values___________________________________________________________________________________#
 
 Top_Attributes = {
@@ -571,5 +454,4 @@ Book_Frame_Attributes = {
                      5 : ('destinations', ''),
                        6 : ('sign/log', ''),
 }
-
 web.mainloop()
