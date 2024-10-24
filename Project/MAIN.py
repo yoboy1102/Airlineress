@@ -14,7 +14,7 @@ from tkcalendar import Calendar
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
-
+#-----------------------------------------------------------------------------------------------------------
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
@@ -24,20 +24,11 @@ ctk.set_default_color_theme('dark-blue')
 web.geometry("1880x1000")
 web.configure(bg = "#FCFFDD")
 
-canvas = Canvas(
-    web,
-    bg = "#FCFFDD", height = 1000,
-    width = 1880, bd = 0,
-    highlightthickness = 0,
-    relief = "ridge"
-)
+canvas = Canvas(web, bg="#FCFFDD", relief="ridge", height=1000, width=1880, bd=0, highlightthickness=0)
 canvas.place(x = 0, y = 0)
-image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
-image_1 = canvas.create_image(
-    940.0, 500.0,
-    image=image_image_1
-)
+
+image_image_1 = PhotoImage(file = relative_to_assets("image_1.png"))
+image_1 = canvas.create_image(940.0, 500.0, image=image_image_1)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 def twoway_arr():
@@ -49,15 +40,12 @@ def twoway_arr():
     calendar_date_d.place(x=293, y=158)
     try:
         cal_tabview.add('Return')
-        cal_ret = Calendar(cal_tabview.tab('Return'),
-                selectmode='day', showweeknumbers=False, year=2024,
-                cursor="hand2", date_pattern='y-mm-dd',borderwidth=0,
-                background='#26294F',selectbackground='#0B041B',
-                    )
+        cal_ret = Calendar(cal_tabview.tab('Return'), selectmode='day', cursor="hand2", date_pattern='y-mm-dd',
+             borderwidth=0, showweeknumbers=False, year=2024, background='#26294F', selectbackground='#0B041B',)
         cal_ret.place(x=5, y=9)
     except:
         pass
-
+#-----------------------------------------------------------------------------------------------------------------
 def oneway_arr ():
     image_ar.place(x=288,y=75)
     image_two.place(x=288,y=-50)
@@ -92,12 +80,15 @@ def calendar_date():
         my_y_cal, my_x_book = 47, 400
         cal_frame.place(x=610, y=my_y_cal)
         booking_button.place(x=my_x_book, y=220)
+
         departure_date.configure(text='DD/MM/YYYY', text_color='grey',font=('Georgia', 11, 'bold'))
         return_date.configure(text='DD/MM/YYYY', text_color='grey',font=('Georgia', 11, 'bold'))
+
     elif my_y_cal == 47 and my_x_book == 400:
         my_y_cal, my_x_book = 400, 630
         cal_frame.place(x=610, y=my_y_cal)
         booking_button.place(x=my_x_book, y=220)
+
         departure_date.configure(text='Departure date -->', text_color='#A6ACAC',font=('Georgia', 12))
         return_date.configure(text='Return date -->', text_color='#A6ACAC',font=('Georgia', 12))
 
@@ -106,7 +97,6 @@ def departure_page():
     ccc, dd, vv=0, [], []
     for i in ages:
         vv.append(i.get())
-
     for i in range(2):
         for j in range(10):
             if entries_home[i].get() == ''*j:
@@ -119,49 +109,32 @@ def departure_page():
     if ccc==0:
         DepartuePage(web, dd, vv)
     else:
-        messagebox.showerror('', 'Details not filled')
-
+        messagebox.showerror('DetailError', 'Details not filled')
 
 TopMenu(web, canvas, 88)   
 
 #Tab View  ----------------------------------------------------------------------------------------------------------
-bookframe = ctk.CTkFrame(web,
-    corner_radius=15, width=1300, height=400, fg_color='#0B041B', bg_color='green' 
-)
+bookframe = ctk.CTkFrame(web, corner_radius=15, width=1300, height=400, fg_color='#0B041B', bg_color='green' )
 bookframe.place(x=150,y=567)
 
-hometab = ctk.CTkTabview(bookframe,
-     width=880, height=340,
-     corner_radius=7,
-     fg_color=('#0B031A','#26294F'),
-     bg_color=('#0B031A','#26294F'),
-     border_color=('#0B031A','#26294F'),border_width= 0,
-     segmented_button_fg_color=('#0B031A','#26294F'),
-     segmented_button_selected_color=('#0B031A','#26294F'),
-     segmented_button_selected_hover_color=('#0B031A','#26294F'),
-     segmented_button_unselected_color=('#26294F','#0B031A'),
-     segmented_button_unselected_hover_color=('#26294F','#0B031A'),
-     text_color=('#CCD09F', '#666666')    
-)
+hometab = ctk.CTkTabview(bookframe, width=880, height=340, corner_radius=7, border_width=0,text_color='#CCD09F',
+     fg_color='#0B031A', bg_color='#0B031A', border_color='#0B031A', segmented_button_fg_color='#0B031A',
+     segmented_button_selected_color='#0B031A', segmented_button_selected_hover_color='#0B031A',
+     segmented_button_unselected_color='#26294F', segmented_button_unselected_hover_color='#26294F',)
 hometab.pack()
 
-hometablist = ['      Book a Flight     ',
-               '      Manage Booking    ',
-               '        Check-in        ',
-               '      Flight Status     ']
+hometablist = ['      Book a Flight     ', '      Manage Booking    ',
+               '        Check-in        ', '      Flight Status     ']
 for i, v in enumerate(hometablist):
      hometab.add(v)
-
-hometab.set('      Book a Flight     ')
+#-----------------------------------------------------------------------------------------------------------------
+hometab.set(hometablist[0])
 hometabcustomfont = ctk.CTkFont("Georgia", 20, 'bold')
-
 hometab._segmented_button.configure( corner_radius=7, font=hometabcustomfont)
 
-#Booking Tab  ----------------------------------------------------------------------------------------------------------
-radioname=['One-way', 'Round Trip']
-radiobuttons = []
-radiovar = ctk.StringVar(web,value='')
+#Booking Tab  ----------------------------------------------------------------------------------------------------
 
+radioname, radiobuttons, radiovar = ['One-way', 'Round Trip'], [], ctk.StringVar(web,value='')
 for i,v in enumerate(radioname):
      v = ctk.CTkRadioButton(hometab.tab(hometablist[0]),
                     text=radioname[i], text_color='white', 
@@ -179,32 +152,25 @@ for i,v in enumerate(radioname):
         v.place(x=200,y=12)
      radiobuttons.append(v)
 
-entryname_home = ['From', 'To']
-entries_home = []
+entryname_home, entries_home, homeroot = ['From', 'To'], [], hometab.tab(hometablist[0])
 
 for i, v in enumerate(entryname_home):
-    v = ctk.CTkEntry(hometab.tab(hometablist[0]),
-                width=250, height=50, fg_color='#26294F', bg_color='#0B041B',
-                border_color='black', border_width=4, corner_radius=8,
-                placeholder_text=entryname_home[i], text_color='white',
-                )
+    v = ctk.CTkEntry(homeroot, placeholder_text=entryname_home[i], width=250, height=50,
+                      fg_color='#26294F', bg_color='#0B041B', border_color='black', text_color='white',)
     v.grid(row=2, column=i, padx=30, pady=20, sticky='w')
     entries_home.append(v)
 
-pass_frame = ctk.CTkFrame(hometab.tab(hometablist[0]),
-                fg_color='#26294F', border_color='black', border_width=5,
-                corner_radius=15, width=122, height=155
-                         )
+pass_frame = ctk.CTkFrame(homeroot ,fg_color = '#26294F', border_color = 'black',
+                    border_width = 5, corner_radius = 15, width = 122, height = 155)
 pass_frame.place(x=0, y=1004)
-
-button_image_pass = ctk.CTkImage(
+#-----------------------------------------------------------------------------------------------------------------
+btn_img_ps = ctk.CTkImage(
     light_image=Image.open(relative_to_assets("button_9.png")),
     dark_image=Image.open(relative_to_assets("button_9.png")),
     size = (122, 18))
-button_pass = ctk.CTkButton(hometab.tab(hometablist[0]),
-    image=button_image_pass, text='', 
+button_pass = ctk.CTkButton(homeroot, image=btn_img_ps, width=122.0, height=20.0, border_width=2, text='', 
     command=lambda :pass_frame_place(pass_frame),
-    width=122.0, height=20.0, border_width=2,
+    
     fg_color='transparent', bg_color='#0B041B',
     hover_color='#0B041B', border_color='#A6ACAC',
 )
@@ -215,7 +181,6 @@ image_hover_pass = ctk.CTkImage(
     dark_image=Image.open(relative_to_assets("button_hover_6.png")),
     size = (122, 18)
     )
-
 def button_pass_hover(e):
     button_pass.configure(
         image=image_hover_pass,
@@ -223,7 +188,7 @@ def button_pass_hover(e):
     )
 def button_pass_leave(e):
     button_pass.configure(
-        image=button_image_pass,
+        image=btn_img_ps,
         #border_color='white'
     )
 
@@ -231,29 +196,31 @@ button_pass.bind('<Enter>', button_pass_hover)
 button_pass.bind('<Leave>', button_pass_leave)
 
 for i in range(1):
+    iclr="#A6ACAC"
+    fontir = ctk.CTkFont('georgia', 14, 'bold')
     age_adult = FloatSpinbox(pass_frame, width=21, height=21,eheight=21,ewidth=25, step_size=1, set_size=1)
     age_adult.grid(row=0, column=1, padx=9,pady=10)
     age_adult.set(1)
 
-    age_adult_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Adults', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
+    age_adult_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Adults', text_color=iclr, font=fontir)
     age_adult_text.grid(row=0, column=0, padx=8,pady=10)
 
     age_child = FloatSpinbox(pass_frame, width=21, height=21,eheight=21,ewidth=25, step_size=1, set_size=0)
     age_child.grid(row=1, column=1, padx=9,pady=10)
     age_child.set(0)
 
-    age_child_text = ctk.CTkLabel(pass_frame, width=20, height=20, text=' Children', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
+    age_child_text = ctk.CTkLabel(pass_frame, width=20, height=20, text=' Children', text_color=iclr, font=fontir)
     age_child_text.grid(row=1, column=0, padx=8,pady=10)
 
     age_toddler = FloatSpinbox(pass_frame, width=21, height=21,eheight=21,ewidth=25, step_size=1, set_size=0,)
     age_toddler.grid(row=2, column=1, padx=9,pady=10)
     age_toddler.set(0)
 
-    age_toddler_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Toddlers', text_color="#A6ACAC", font=('Georgia', 14, 'bold'))
+    age_toddler_text = ctk.CTkLabel(pass_frame, width=20, height=20, text='Toddlers', text_color=iclr,font=fontir)
     age_toddler_text.grid(row=2, column=0, padx=8,pady=10)
 
     ages = [age_adult, age_child, age_toddler]
-
+#-----------------------------------------------------------------------------------------------------------------
 departure_date_img = ctk.CTkImage(
     light_image=Image.open(relative_to_assets("Label.png")),
     dark_image=Image.open(relative_to_assets("Label.png")),
@@ -306,7 +273,7 @@ cal_tabview.pack()
 cal_tabview.add('Departure')
 cal_tabview.add('Return')
 cal_tabview.set('Departure')
-
+#-----------------------------------------------------------------------------------------------------------------
 cal_dep = Calendar(cal_tabview.tab('Departure'),
             selectmode='day', showweeknumbers=False,
             cursor="hand2", date_pattern= 'y-mm-dd',
@@ -332,7 +299,7 @@ def booking_hover_leave(e):
 
 booking_button.bind('<Enter>', booking_hover_enter)
 booking_button.bind('<Leave>', booking_hover_leave)
-
+#-----------------------------------------------------------------------------------------------------------------
 image_image_ar = ctk.CTkImage(
         light_image=Image.open(relative_to_assets("Arrow_.png")),
         dark_image=Image.open(relative_to_assets("Arrow_.png")),
@@ -361,7 +328,7 @@ manage_label.place(x=25, y=25)
 entryname_manage = ['Booking Reference No.', 'Last Name']
 sticky_manage=['e','w']
 entries_manage = []
-
+#-----------------------------------------------------------------------------------------------------------------
 for i, v in enumerate(entryname_manage):
     v = ctk.CTkEntry(hometab.tab(hometablist[1]),
             width=300, height=60, border_width=6, corner_radius=8,
@@ -407,7 +374,7 @@ for i, v in enumerate(entryname_checkin):
                 placeholder_text=entryname_checkin[i],)
     v.place(x=50+(i*350), y=90)
     entries_checkin.append(v)
-
+#-----------------------------------------------------------------------------------------------------------------
 checkin_button_font = ctk.CTkFont('Georgia', 16, 'bold', slant='italic')
 checkin_button = ctk.CTkButton(hometab.tab(hometablist[2]),
                 width=150, height=50, corner_radius=7, border_width=7, hover = False,
@@ -433,7 +400,7 @@ flight_status_disabled = ctk.CTkButton(bookframe, text='Flight Status',
                     command=service_not_available, font=disablecustomfont,
                     )
 flight_status_disabled.place(x=658, y=13)
-
+#-----------------------------------------------------------------------------------------------------------------
 #web.wm_attributes('-transparentcolor','green')
 #_____________________________________________________________________Values___________________________________________________________________________________#
 
