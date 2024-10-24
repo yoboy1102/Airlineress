@@ -1,19 +1,11 @@
 #Explore Menu
-import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
-import PIL
 from PIL import Image, ImageTk
 from pathlib import Path
-from tkinter import ttk
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import customtkinter as ctk
-import time 
-#app = ctk.CTk()
-#app.geometry('1900x800')
+
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
-
 
 def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -24,31 +16,16 @@ def continents_explore(frames):
                 for i, v in enumerate(conts[5]):
                                 if conts[6][i] == conts[6][k] :
                                         conts[11][i].configure(underline=True, slant='roman')
-                                        conts[5][i].configure(font=conts[11][i],
-                                                              # text_color_disabled = '#CCD09F'
-                                                              )
+                                        conts[5][i].configure(font=conts[11][i])
                                         conts[12].configure(image=conts[l][i])
-                                        #frameys.configure(corner_radius = 10)       
-                                        
-        def hover_leave(e, k, j):
+        def hover_leave(e, k, j, l):
                 conts = continent[j]
                 for i, x in enumerate(conts[5]):
                         if conts[6][i] == conts[6][k] :
-                                conts[11][i].configure(underline=False,  slant='roman')
-                                conts[5][i].configure(font=conts[11][i], 
-                                                      #text_color_disabled = '#A6ACAC'
-                                                      )
-
-
-
-
+                                conts[11][i].configure(underline=False, slant='roman')
+                                conts[5][i].configure(font=conts[11][i])
         #---------------------------------------------------------------------------------------------------------------------------------------------------------------#
-        continents = [
-                'eur',
-                'asia',
-                'AMRCS',
-                'M_E'
-        ]
+        continents = ['eur', 'asia', 'AMRCS', 'M_E']
     
         eur_variables = [
                 'eur_frame',
@@ -160,24 +137,10 @@ def continents_explore(frames):
                 'Vienna',
                 ]
 
-        continent = []
-        continent.append(eur_variables)
-        continent.append(asia_variables)
-        continent.append(AMRCS_variables)
-        continent.append(M_E_variables)
-
-        all_places = []
-        all_places.append(eur_places)
-        all_places.append(asia_places)
-        all_places.append(AMRCS_places)
-        all_places.append(M_E_places)
-
+        continent = [eur_variables, asia_variables, AMRCS_variables, M_E_variables]
+        all_places = [eur_places, asia_places, AMRCS_places, M_E_places]
         cont_name_title = ['    EUROPE    ','    ASIA    ', '    AMERICAS    ','    MIDDLE-EAST    ']
-
-#_-------------------------------------------------------------------------------------------------------------------------------------------#
-        colors_test = ['white', 'green','white', 'green','white', 'green','white', 'green','white', 'green','white', 'green']
-#_-------------------------------------------------------------------------------------------------------------------------------------------#
-
+        
         for cvar, places in enumerate(continents):
                 cont = continent[cvar]
                 cont[0]= ctk.CTkFrame(
@@ -318,105 +281,14 @@ def continents_explore(frames):
                 #cont[13] = [True,True,True,True,True,True,True,True]
                 #for v in eur_vars:
                 #       v=True
-        #eur
-        continent[0][5][0].bind('<Enter>', lambda f: hover_enter(e=E, k=0, j=0, l=7)) 
-        continent[0][5][0].bind('<Leave>', lambda f: hover_leave(e=E, k=0, j=0))
 
-        continent[0][5][1].bind('<Enter>', lambda f: hover_enter(e=E, k=1, j=0, l=7)) 
-        continent[0][5][1].bind('<Leave>', lambda f: hover_leave(e=E, k=1, j=0))  
-                
-        continent[0][5][2].bind('<Enter>', lambda f: hover_enter(e=E, k=2, j=0, l=7)) 
-        continent[0][5][2].bind('<Leave>', lambda f: hover_leave(e=E, k=2, j=0)) 
-
-        continent[0][5][3].bind('<Enter>', lambda f: hover_enter(e=E, k=3, j=0, l=7)) 
-        continent[0][5][3].bind('<Leave>', lambda f: hover_leave(e=E, k=3, j=0)) 
-
-        continent[0][5][4].bind('<Enter>', lambda f: hover_enter(e=E, k=4, j=0, l=7)) 
-        continent[0][5][4].bind('<Leave>', lambda f: hover_leave(e=E, k=4, j=0))
-                
-        continent[0][5][5].bind('<Enter>', lambda f: hover_enter(e=E, k=5, j=0, l=7)) 
-        continent[0][5][5].bind('<Leave>', lambda f: hover_leave(e=E, k=5, j=0)) 
-
-        continent[0][5][6].bind('<Enter>', lambda f: hover_enter(e=E, k=6, j=0, l=7)) 
-        continent[0][5][6].bind('<Leave>', lambda f: hover_leave(e=E, k=6, j=0)) 
-
-        #continent[0][5][7].bind('<Enter>', lambda f: hover_enter(e=E, k=7, j=0, l=7)) 
-        #continent[0][5][7].bind('<Leave>', lambda f: hover_leave(e=E, k=7, j=0))
-
-        #asia
-        continent[1][5][0].bind('<Enter>', lambda f: hover_enter(e=E, k=0, j=1, l=7)) 
-        continent[1][5][0].bind('<Leave>', lambda f: hover_leave(e=E, k=0, j=1))
-
-        continent[1][5][1].bind('<Enter>', lambda f: hover_enter(e=E, k=1, j=1, l=7)) 
-        continent[1][5][1].bind('<Leave>', lambda f: hover_leave(e=E, k=1, j=1))  
-                
-        continent[1][5][2].bind('<Enter>', lambda f: hover_enter(e=E, k=2, j=1, l=7)) 
-        continent[1][5][2].bind('<Leave>', lambda f: hover_leave(e=E, k=2, j=1)) 
-
-        continent[1][5][3].bind('<Enter>', lambda f: hover_enter(e=E, k=3, j=1, l=7)) 
-        continent[1][5][3].bind('<Leave>', lambda f: hover_leave(e=E, k=3, j=1)) 
-
-        continent[1][5][4].bind('<Enter>', lambda f: hover_enter(e=E, k=4, j=1, l=7)) 
-        continent[1][5][4].bind('<Leave>', lambda f: hover_leave(e=E, k=4, j=1))
-                
-        continent[1][5][5].bind('<Enter>', lambda f: hover_enter(e=E, k=5, j=1, l=7)) 
-        continent[1][5][5].bind('<Leave>', lambda f: hover_leave(e=E, k=5, j=1)) 
-
-        continent[1][5][6].bind('<Enter>', lambda f: hover_enter(e=E, k=6, j=1, l=7)) 
-        continent[1][5][6].bind('<Leave>', lambda f: hover_leave(e=E, k=6, j=1)) 
-
-        #continent[1][5][7].bind('<Enter>', lambda f: hover_enter(e=E, k=7, j=1, l=7)) 
-        #continent[1][5][7].bind('<Leave>', lambda f: hover_leave(e=E, k=7, j=1))
-
-        #AMRCS
-        continent[2][5][0].bind('<Enter>', lambda f: hover_enter(e=E, k=0, j=2, l=8)) 
-        continent[2][5][0].bind('<Leave>', lambda f: hover_leave(e=E, k=0, j=2))
-
-        continent[2][5][1].bind('<Enter>', lambda f: hover_enter(e=E, k=1, j=2, l=8)) 
-        continent[2][5][1].bind('<Leave>', lambda f: hover_leave(e=E, k=1, j=2))  
-                
-        continent[2][5][2].bind('<Enter>', lambda f: hover_enter(e=E, k=2, j=2, l=8)) 
-        continent[2][5][2].bind('<Leave>', lambda f: hover_leave(e=E, k=2, j=2)) 
-
-        continent[2][5][3].bind('<Enter>', lambda f: hover_enter(e=E, k=3, j=2, l=8)) 
-        continent[2][5][3].bind('<Leave>', lambda f: hover_leave(e=E, k=3, j=2)) 
-
-        continent[2][5][4].bind('<Enter>', lambda f: hover_enter(e=E, k=4, j=2, l=8)) 
-        continent[2][5][4].bind('<Leave>', lambda f: hover_leave(e=E, k=4, j=2))
-                
-        continent[2][5][5].bind('<Enter>', lambda f: hover_enter(e=E, k=5, j=2, l=8)) 
-        continent[2][5][5].bind('<Leave>', lambda f: hover_leave(e=E, k=5, j=2)) 
-
-        continent[2][5][6].bind('<Enter>', lambda f: hover_enter(e=E, k=6, j=2, l=8)) 
-        continent[2][5][6].bind('<Leave>', lambda f: hover_leave(e=E, k=6, j=2)) 
-
-        #continent[2][5][7].bind('<Enter>', lambda f: hover_enter(e=E, k=7, j=2, l=7)) 
-        #continent[2][5][7].bind('<Leave>', lambda f: hover_leave(e=E, k=7, j=2))
-
-        #M_E
-        continent[3][5][0].bind('<Enter>', lambda f: hover_enter(e=E, k=0, j=3, l=8)) 
-        continent[3][5][0].bind('<Leave>', lambda f: hover_leave(e=E, k=0, j=3))
-
-        continent[3][5][1].bind('<Enter>', lambda f: hover_enter(e=E, k=1, j=3, l=8)) 
-        continent[3][5][1].bind('<Leave>', lambda f: hover_leave(e=E, k=1, j=3))  
-                
-        continent[3][5][2].bind('<Enter>', lambda f: hover_enter(e=E, k=2, j=3, l=8)) 
-        continent[3][5][2].bind('<Leave>', lambda f: hover_leave(e=E, k=2, j=3)) 
-
-        continent[3][5][3].bind('<Enter>', lambda f: hover_enter(e=E, k=3, j=3, l=8)) 
-        continent[3][5][3].bind('<Leave>', lambda f: hover_leave(e=E, k=3, j=3)) 
-
-        continent[3][5][4].bind('<Enter>', lambda f: hover_enter(e=E, k=4, j=3, l=8)) 
-        continent[3][5][4].bind('<Leave>', lambda f: hover_leave(e=E, k=4, j=3))
-                
-        continent[3][5][5].bind('<Enter>', lambda f: hover_enter(e=E, k=5, j=3, l=8)) 
-        continent[3][5][5].bind('<Leave>', lambda f: hover_leave(e=E, k=5, j=3)) 
-
-        continent[3][5][6].bind('<Enter>', lambda f: hover_enter(e=E, k=6, j=3, l=8)) 
-        continent[3][5][6].bind('<Leave>', lambda f: hover_leave(e=E, k=6, j=3)) 
-
-        #continent[3][5][7].bind('<Enter>', lambda f: hover_enter(e=E, k=7, j=3, l=7)) 
-        #continent[3][5][7].bind('<Leave>', lambda f: hover_leave(e=E, k=7, j=3))     
-
-      
-#app.mainloop()
+        lvaleur =   [7, 7, 7, 7, 7, 7, 7, 7]
+        lvalasia =  [7, 7, 7, 7, 7, 7, 7, 7]
+        lvalAMRCS = [8, 8, 8, 8, 8, 8, 8, 8]
+        lvalM_E =   [8, 8, 8, 8, 8, 8, 8, 8]
+        lval = [lvaleur, lvalasia, lvalAMRCS, lvalM_E]
+        ccc=5
+        for i in range(4):
+                for j in range(7):
+                        continent[i][ccc][j].bind('<Enter>', lambda E=E, j=j, i=i: hover_enter(e=E, k=j, j=i, l=lval[i][j])) 
+                        continent[i][ccc][j].bind('<Leave>', lambda E=E, j=j, i=i: hover_leave(e=E, k=j, j=i, l=lval[i][j]))
