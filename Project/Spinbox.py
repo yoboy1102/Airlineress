@@ -54,8 +54,7 @@ class FloatSpinbox(customtkinter.CTkFrame):
         self.add_button.grid(row=0, column=2, padx=(0, 3), pady=3)
         # default value
         self.entry.insert(0, "0.0")
-        
-
+                     
     def add_button_callback(self):
         val = int(self.entry.get())+1
         
@@ -90,7 +89,7 @@ class FloatSpinbox(customtkinter.CTkFrame):
                 self.entry.insert(0, value)
             except ValueError:
                 return
-            
+                
             if val == 6.0:
                 self.add_button.configure(state='disabled')
             if val == self.set_size:
@@ -98,8 +97,6 @@ class FloatSpinbox(customtkinter.CTkFrame):
             if val != self.set_size and val != 6.0:
                 self.add_button.configure(state='normal')
                 self.subtract_button.configure(state='normal')
-
-        
 
     def get(self) -> Union[int, None]:
         try:
