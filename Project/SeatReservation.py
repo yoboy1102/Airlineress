@@ -43,9 +43,9 @@ def SeatRes(window, list_no_pass, count_pass):
     
     s_frm_w= 1200
     seat_frame = ctk.CTkScrollableFrame(window,
-                                    fg_color = '#0A2355', bg_color = '#1E1E1E',
+                                    fg_color = '#071B41', bg_color = '#1E1E1E',
                                     corner_radius = 58,width=s_frm_w, height=1000-92,
-                                    border_color = '#CCD09F', border_width = 0, )
+                                    border_color = '#CCD09F', border_width = 0 )
     seat_frame.place(x=-50, y=94)
     air_w, air_h = s_frm_w+1700, 3285
     seat_i_frame = ctk.CTkFrame(seat_frame,height=air_h, width=air_w, fg_color='transparent')
@@ -88,7 +88,9 @@ def SeatRes(window, list_no_pass, count_pass):
     SeatResFunc(2, 11, 6, 0, eco_buss[1], CBcheck_val, 1.3, 28, eco_rad, [2,2,10], eco_clr)
     SeatResFunc(3, 14, 6, 0, eco_buss[2], CBcheck_val, 1.3, 28, ecoradd, [2,2,10], eco_clr)
     TopMenu(window, canvas_2, -50) 
-'''web=ctk.CTk()
+'''''''''''''''
+web=ctk.CTk()
 web.geometry('1880x1000')
-SeatRes(web)
-web.mainloop()'''
+SeatRes(web,[4,5,2], 3)
+web.mainloop()
+'''''''''''''''
