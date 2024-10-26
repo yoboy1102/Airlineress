@@ -4,7 +4,7 @@ import customtkinter as ctk
 from customtkinter import CTkFrame,CTkButton,CTkLabel,CTkImage,CTkScrollableFrame,CTkFont,CTkComboBox,CTkEntry 
 from PIL import Image, ImageTk
 from pathlib import Path
-from tkinter import Canvas
+from tkinter import Canvas, messagebox
 from TopMenu import TopMenu
 from time import *
 from SeatReservation import SeatRes
@@ -21,8 +21,24 @@ def PassDetails(window, list_no_pass, count_pass):
         current_time = strftime('%H:%M:%S %p')
         time_lbl.configure(text=current_time)
         time_lbl.after(1000, update_time)
+
+    def checkdetail():
+
+        for i, v in enumerate(ent_list):
+            for j, w in enumerate(v):
+                if ent_val_l[i][j] == 1:
+                     for k in range(10):
+                        if w.get() == ' '*k:
+                            return False
+        return True
+
     def seatres():
-        SeatRes(window, list_no_pass, count_pass)
+        if checkdetail():
+            
+            #SeatRes(window, list_no_pass, count_pass)
+            print('ok')
+        else:
+            messagebox.showerror('Error', 'Please fill all the fields')
 
     canvas_3 = Canvas(window, bg = "#071B41", bd = 0,  height = 1000, width = 1880, highlightthickness = 0)
     canvas_3.place(x = 0, y = 0)
@@ -40,11 +56,11 @@ def PassDetails(window, list_no_pass, count_pass):
 
     S_H, S_W =1000-92-H_H, 1880-V_W
     pass_sclr_frame = CTkScrollableFrame(window, height=S_H, width=S_W, fg_color='#05191A',#3860A1
-                            border_color='#CCD09F', border_width=1, corner_radius=10, bg_color='#071B41')#223A60
+                            border_color='#CCD09F', border_width=0, corner_radius=10, bg_color='#071B41')#223A60
     pass_sclr_frame.place(x=0, y=92+H_H)
 
-    lineimg = CTkImage(light_image=Image.open(relative_to_assets('Line 1.png')),
-                dark_image=Image.open(relative_to_assets('Line 1.png')), size=(3, S_H))
+    lineimg = CTkImage(light_image=Image.open(relative_to_assets('Line.png')),
+                dark_image=Image.open(relative_to_assets('Line.png')), size=(1, S_H))
     linelbl = CTkLabel(window, image=lineimg, fg_color='transparent', text='')
     linelbl.place(x=S_W/2, y=92+H_H)     #Line Image in the middle of scrollable frame
 
@@ -117,16 +133,16 @@ def PassDetails(window, list_no_pass, count_pass):
     
     no_adults, no_children, no_toddlers = list_no_pass[0], list_no_pass[1], list_no_pass[2]
     no_l, txt_l_0 =[no_adults, no_children, no_toddlers] ,['Adult', 'Child', 'Toddler'] #More values
-    frm_m,bb,pas_l,ent_list,cc,k0=[],[],[],[],0,0
+    frm_m, bb, pas_l, ent_list, ent_val_l, cc, k0 = [], [], [], [], [], 0, 0
 
     for j in range(3):
         print('j',j, txt_l_0[j])  #To be removed
-        bbb,frm_m0_l=[],[]  #To be removed
+        bbb,frm_m0_l =[],[]  #To be removed
         
         for i in range(no_l[j]):
 
             frm_m0 = CTkFrame(list_frm[k0], fg_color='#092425',corner_radius=20,
-                              border_color='#0E2C65', border_width=1)#'#D9EBE0'
+                              border_color='#000000', border_width=4)#'#D9EBE0'
             frm_m0.pack(pady=25, ipady=10, ipadx=10)  #Passenger Frame left and right
             bbb.append(k0)
             if k0 == 0:
@@ -167,8 +183,12 @@ def PassDetails(window, list_no_pass, count_pass):
                                     button_color='#A1B0CC', border_color='#A1B0CC')  #Title ComboBox
                 title_m.grid(row=0, column=0, sticky='w', padx=10, pady=10)
                 
-                ent_emp =[]
+                ent_emp, ent_val =[],[]
                 for i in range(3):
+                    if ent_text_l1[i].endswith('*'):
+                         ent_val.append(1)
+                    else:
+                         ent_val.append(0)
                     ent = CTkEntry(frm_body, placeholder_text=ent_text_l1[i], height=s_hei, width=s_wid,
                                          font=('Helvetica', 14), border_color='#A1B0CC', fg_color='#D8EADF', 
                                          corner_radius=6, border_width=1,)  #Entry, ent_text_l1
@@ -176,22 +196,26 @@ def PassDetails(window, list_no_pass, count_pass):
                     ent_emp.append(ent)
 
                 for i in range(2):
+                    if ent_text_l2[i].endswith('*'):
+                         ent_val.append(1)
+                    else:
+                         ent_val.append(0)
                     ent = CTkEntry(frm_body, placeholder_text=ent_text_l2[i], height=s_hei, width=s_wid,
                                          font=('Helvetica', 14), border_color='#A1B0CC', fg_color='#D8EADF', 
                                          border_width=1, corner_radius=6,)  #Entry, ent_text_l2
                     ent.grid(row=2, column=i, padx=10, pady=5)
                     ent_emp.append(ent)
                 ent_list.append(ent_emp)    #For values later
-
+                ent_val_l.append(ent_val)
 
     TopMenu(window, canvas_3, -88)
     window.resizable(False, False)
     print(V_W, V_H, S_W, S_H, H_W, H_H) #TBR
 
-'''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''
 web = ctk.CTk()
 web.geometry('1880x1000')
 web.configure(bg_color='#05191A') #TBR
-PassDetails(web, [4,5,2], 1)
+PassDetails(web, [1,1,1], 1)
 web.mainloop()
-'''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''
