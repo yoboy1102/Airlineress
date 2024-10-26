@@ -32,7 +32,7 @@ image_1 = canvas.create_image(940.0, 500.0, image=image_image_1)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------
 def twoway_arr():
-    
+    global image_ar, image_two, departure_date, return_date, calendar_date_d, cal_tabview
     image_two.place(x=288,y=77)
     image_ar.place(x=288,y=-50)
     departure_date.place(x=30, y=153)
@@ -47,6 +47,7 @@ def twoway_arr():
         pass
 #-----------------------------------------------------------------------------------------------------------------
 def oneway_arr ():
+    global image_ar, image_two, departure_date, return_date, calendar_date_d, cal_tabview
     image_ar.place(x=288,y=75)
     image_two.place(x=288,y=-50)
     departure_date.place(x=170, y=155)
@@ -92,8 +93,18 @@ def calendar_date():
         departure_date.configure(text='Departure date -->', text_color='#A6ACAC',font=('Georgia', 12))
         return_date.configure(text='Return date -->', text_color='#A6ACAC',font=('Georgia', 12))
 
+def radconf(i):
+    print(i)
+    global tpw
+    if i == 0:
+        tpw=0
+        oneway_arr()
+    elif i == 1:
+        tpw=1
+        twoway_arr()
 
 def departure_page():
+    global tpw
     ccc, dd, vv=0, [], []
     for i in ages:
         vv.append(i.get())
@@ -104,10 +115,15 @@ def departure_page():
                 break
         else:
             print(entries_home[i].get())
+            
             dd.append(entries_home[i].get())
+            
             continue
+
     if ccc==0:
-        DepartuePage(web, dd, vv)
+        dddd = [dd, dd[::-1]]
+        print(dddd, tpw)
+        DepartuePage(web, fromto=dddd, listno_pass=vv, tripway=tpw)
     else:
         messagebox.showerror('DetailError', 'Details not filled')
 
@@ -141,14 +157,11 @@ for i,v in enumerate(radioname):
                     variable=radiovar, font=('Arial', 16, 'bold'),
                     border_width_checked=6,border_width_unchecked=2,
                     border_color='#26294F',fg_color='#26294F',
-                    hover_color='#26294F', command=None
+                    hover_color='#26294F', command=lambda i=i: radconf(i)
                     )
      if i == 0:
-        v.select(1)
-        v.configure(command=oneway_arr)
         v.grid(row=0, column=i, padx=50, pady=12, sticky='ew')  
      else:
-        v.configure(command=twoway_arr)
         v.place(x=200,y=12)
      radiobuttons.append(v)
 
@@ -257,17 +270,12 @@ cal_frame.place(x=69, y=400)
 dep_opt_font = ctk.CTkFont('Inter', 12, 'bold')
 ret_opt_font = ctk.CTkFont('Inter', 12, 'bold')
 
-cal_tabview = ctk.CTkTabview(cal_frame,
-     height=300, width=250, corner_radius=7, border_width=0,
-     fg_color=('#0B031A','#26294F'),
-     bg_color=('#0B031A','#26294F'),
-     border_color=('#26294F','#0B031A'),
-     segmented_button_fg_color=('#26294F','#0B031A'),
-     segmented_button_selected_color=('#0B031A','#26294F'),
-     segmented_button_selected_hover_color=('#0B031A','#26294F'),
-     segmented_button_unselected_color=('#26294F','#0B031A'),
-     segmented_button_unselected_hover_color=('#26294F','#0B031A'),
-     text_color='white')
+cal_tabview = ctk.CTkTabview(cal_frame, height=300, width=250, corner_radius=7, border_width=0,
+     fg_color='#0B031A', text_color='white', bg_color='#0B031A', border_color='#26294F',
+     segmented_button_fg_color='#26294F', segmented_button_selected_hover_color='#0B031A',
+     segmented_button_selected_color='#0B031A',segmented_button_unselected_color='#26294F',
+     segmented_button_unselected_hover_color='#26294F',
+     )
 cal_tabview.pack()
 
 cal_tabview.add('Departure')
@@ -314,7 +322,7 @@ image_image_two = ctk.CTkImage(
         )
 image_two = ctk.CTkLabel(hometab.tab(hometablist[0]),text='',image=image_image_two)
 
-oneway_arr()
+radconf(0)
 
 #Manage booking Tab ----------------------------------------------------------------------------------------------------------
 manage_label_font = ctk.CTkFont('Georgia', 18, underline=True, slant='italic')
