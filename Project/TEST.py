@@ -366,12 +366,37 @@ return_date.grid(row=3, column=1, padx=30, pady=15, sticky='w')
 possible_destinations = ['Madrid, Spain:(MAD)', 'Athens, Greece:(ATH)', 'Bali, Indonesia:(DPS)', 'Berlin, Germany:(BER)', 'Paris, France:(CDG)', 'Rome, Italy:(FCO)', 'Vienna, Austria:(VIE)']
 entryname_home, entries_home, xx, xx_poly , img_add, img_l, lb_l= ['From', 'To'], [], [42, 370], [255, 575], ["Poly down", "Poly up"], [], []
 for i, v in enumerate(entryname_home):
-    #scroll_frame = ctk.CTkScrollableFrame(homeroot, width=250, height=15, fg_color='transparent', border_width=0)
-    #scroll_frame.place(x=30, y=600)
-    listbox_font = ctk.CTkFont('Times New Roman', 16, 'bold', 'italic')
-    listbox = Listbox(homeroot, font=listbox_font, fg='#d9d9d9', bg='#0B041B', borderwidth=0)
-    listbox.place(x=30, y=600)
-    #listbox.pack()
+    listbox_font = ctk.CTkFont('Georgia', 16, 'bold')
+    listbox = Listbox(
+        homeroot, 
+        font=listbox_font,
+        fg='#CCD09F',          # Brighter text color for better readability
+        bg='#26294F',          # Matching background with entry fields
+        selectforeground='white',    # Selected item text color
+        selectbackground='#0B041B',  # Selected item background
+        borderwidth=2,              
+        relief="solid",
+        highlightthickness=1,
+        highlightcolor='#A6ACAC',
+        highlightbackground='#26294F',
+        height=6,                    # Show 6 items at a time
+        activestyle='dotbox'         # Better visual feedback for active item
+    )
+    listbox.place(x=xx[i], y=600)
+    
+    # Add hover effect for listbox items
+    def on_enter(e, lb=listbox):
+        current = lb.nearest(e.y)
+        lb.selection_clear(0, END)
+        lb.selection_set(current)
+        lb.activate(current)
+
+    def on_leave(e, lb=listbox):
+        lb.selection_clear(0, END)
+
+    listbox.bind('<Motion>', on_enter)
+    listbox.bind('<Leave>', on_leave)
+
     listbox_update(possible_destinations, listbox)
     lb_l.append(listbox)
 
@@ -392,10 +417,17 @@ for i, v in enumerate(entryname_home):
     img_but.place(x=xx_poly[i], y=84)
     img_but.configure(command=lambda i=i, but=img_but, sf=listbox: poly_but(sf, xx[i], but))
 
-    v.bind('<KeyRelease>', lambda e, entry=v, i=i, lb=listbox, sf =listbox: listbox_select(e, entry, lb))
-    v.bind('<FocusIn>', lambda e, entry=v, i=i, but=img_but, sf=listbox: bringin(e,  sf, xx[i], but))
+    # Bind click event to the main window
+    web.bind('<Button-1>', lambda e, sf=listbox, xx=xx[i], but=img_but: 
+             takeout(e, sf, xx, but))
 
-    listbox.bind('<Button-1>', lambda e, entry=v, lb=listbox: entry_update(e, entry, lb)) 
+    v.bind('<KeyRelease>', lambda e, entry=v, i=i, lb=listbox, sf=listbox: 
+           listbox_select(e, entry, lb))
+    v.bind('<FocusIn>', lambda e, entry=v, i=i, but=img_but, sf=listbox: 
+           bringin(e, sf, xx[i], but))
+
+    listbox.bind('<Button-1>', lambda e, entry=v, lb=listbox: 
+                 entry_update(e, entry, lb))
 #=============================================================================================================================================================e
 
 
@@ -571,4 +603,31 @@ Book_Frame_Attributes = {
                      5 : ('destinations', ''),
                        6 : ('sign/log', ''),
 }
+
+# Add this new function at the top level
+def handle_click_outside(event):
+    widget = event.widget
+    
+    # Check each listbox
+    for i, listbox in enumerate(lb_l):
+        # Only process if listbox is visible (y=117)
+        if listbox.winfo_y() == 117:
+            # Get click coordinates relative to the window
+            click_x = web.winfo_pointerx() - web.winfo_rootx()
+            click_y = web.winfo_pointery() - web.winfo_rooty()
+            
+            # Get listbox coordinates and dimensions
+            lb_x = listbox.winfo_x()
+            lb_y = listbox.winfo_y()
+            lb_width = listbox.winfo_width()
+            lb_height = listbox.winfo_height()
+            
+            # If click is outside listbox area
+            if not (lb_x <= click_x <= lb_x + lb_width and 
+                   lb_y <= click_y <= lb_y + lb_height):
+                takeout(None, listbox, xx[i], img_l[i])
+
+# Replace the old web.bind line with this (after all listboxes are created):
+web.bind('<Button-1>', handle_click_outside)
+
 web.mainloop()

@@ -6,6 +6,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from TopMenu import TopMenu
 from SeatResFunc import SeatResFunc
 from SeatResFunc import *
+from SeatRes import tckt_dtls
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
@@ -13,7 +14,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kam
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path) 
 
-def SeatRes(window, list_no_pass, count_pass):
+def SeatRes(window, list_no_pass, pass_details, fromto):
 
     def CBcheck_val(bools, p, q, er, alph, n__0, clrr):
         print(len(er))
@@ -21,7 +22,6 @@ def SeatRes(window, list_no_pass, count_pass):
         er[n_0+p-1][q].configure(fg_color='#ED5B80', hover_color='#ED5B80')
         for h in er:   
             for i in h:
-                    
                     if i == er[p][q]:
                         #F6C0CF'
                         print(i, i.get())
@@ -35,18 +35,14 @@ def SeatRes(window, list_no_pass, count_pass):
            
         er[n_0+p-1][q].configure(fg_color='#ED5B80', hover_color='#ED5B80')
 
-    canvas_2 = Canvas(
-        window,
-        bg = "#1E1E1E", bd = 0,  height = 1000, width = 1880,
-        highlightthickness = 0)
+    canvas_2 = Canvas(window, bg = "#1E1E1E", bd = 0,  height = 1000, width = 1880, highlightthickness = 0)
     canvas_2.place(x = 0, y = 0)
     
     s_frm_w= 1200
-    seat_frame = ctk.CTkScrollableFrame(window,
-                                    fg_color = '#071B41', bg_color = '#1E1E1E',
+    seat_frame = ctk.CTkScrollableFrame(window, fg_color = '#101F44', bg_color = '#101F44',
                                     corner_radius = 58,width=s_frm_w, height=1000-92,
                                     border_color = '#CCD09F', border_width = 0 )
-    seat_frame.place(x=-50, y=94)
+    seat_frame.place(x=-50, y=93)
     air_w, air_h = s_frm_w+1700, 3285
     seat_i_frame = ctk.CTkFrame(seat_frame,height=air_h, width=air_w, fg_color='transparent')
     seat_i_frame.pack()
@@ -72,25 +68,26 @@ def SeatRes(window, list_no_pass, count_pass):
             v = ctk.CTkFrame(all_frm,
                             width=185-8, height=w_h[i//2],
                             corner_radius=25, fg_color='white',
-                            bg_color='transparent',
-                            )
+                            bg_color='transparent',)
             v.grid(row=i, column=0, padx=4, pady=3)
             eco_buss.append(v)
         else:
-            v = ctk.CTkLabel(all_frm,
-                            image=exit_row_img, text='')
+            v = ctk.CTkLabel(all_frm, image=exit_row_img, text='')
             v.grid(row=i, column=0, padx=4, pady=0, sticky='w')
-
 
     bus_rad, eco_rad, ecoradd = [], [], []
     bus_clr, eco_clr = ['#3DCCB2', '#84FFE9'],  ['#5E7FDE', '#9FC9FF'], #['#ED5B80', '#F6C0CF'],
-    SeatResFunc(1, 7, 4, 4,  eco_buss[0], CBcheck_val, 1.4, 36, bus_rad, [3,8,11], bus_clr)
-    SeatResFunc(2, 11, 6, 0, eco_buss[1], CBcheck_val, 1.3, 28, eco_rad, [2,2,10], eco_clr)
-    SeatResFunc(3, 14, 6, 0, eco_buss[2], CBcheck_val, 1.3, 28, ecoradd, [2,2,10], eco_clr)
+    SeatResFunc(1, 7, 4, 4, eco_buss[0], CBcheck_val, 1.4, 36, bus_rad, [3,8,11], bus_clr)
+    SeatResFunc(2, 9, 6, 0, eco_buss[1], CBcheck_val, 1.3, 28, eco_rad, [2,2,10], eco_clr)
+    SeatResFunc(3, 10, 6, 0, eco_buss[2], CBcheck_val, 1.3, 28, ecoradd, [2,2,10], eco_clr)
+    tckt_dtls(window, 92, 1221, pass_details, fromto)
     TopMenu(window, canvas_2, -50) 
-'''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 web=ctk.CTk()
 web.geometry('1880x1000')
-SeatRes(web,[4,5,2], 3)
+SeatRes(web,[1,1,1], 3, 
+        [['sayed', 'rizvi', 'blabla'], ['tendi', 'kittu', 'bleble'], ['haid', 'andi', 'blublu']]
+        )
 web.mainloop()
-'''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

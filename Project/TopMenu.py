@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from ExploreMenu import continents_explore
 from LogInSignUp import LogIn_SignUp
+from DestinationsMenu import destinations_menu
+from ManageExperience import Manage_Exp
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
@@ -35,20 +37,21 @@ def TopMenu(window, canva, yy):
     for i in range(7):
         button_creator(i+1)
 
-    framev = ['frame_1','frame_2','frame_3','frame_4']
-    colors = ['#0B041B','#26294F','#CCD09F','green','brown']
+    framev, plc = ['frame_1','frame_2','frame_3','frame_4'], [[135, 18], [150, 20], [150, 20], [100, 18]]
+    sze = [400, 350, 350, 420]
     global frame_bool_list, my_y_list, frames
-    frame_bool_list, my_y_list, frames = [], [], []
+    frame_bool_list, my_y_list, frames, frms_inner = [], [], [], []
 
     for i, v in enumerate(framev):
-        v = ctk.CTkFrame(window, fg_color=colors[i], border_color='#CCD09F',
-                width=1880, corner_radius=0, height=420, border_width=1,)
-        v.place(x=0,y=1004)   
+        v = ctk.CTkFrame(window, fg_color='#0B041B', border_color='#CCD09F',
+                width=1880, corner_radius=0, height=sze[i], border_width=1,)
+        v.place(x=0,y=1004)
+        frame_inner_ = ctk.CTkFrame(v, fg_color='#0B041B', width=1600, height=200)
+        frame_inner_.place(x=plc[i][0], y=plc[i][1])
+        frms_inner.append(frame_inner_)
         frames.append(v)
         frame_bool_list.append(False)
         my_y_list.append(1004)
-    frame_inner_explore = ctk.CTkFrame(frames[0], fg_color=colors[0], width=1600, height=200,)
-    frame_inner_explore.place(x=135, y=18)
 
     for i in range(5):
         v = ctk.CTkImage(light_image=Image.open(relative_to_assets("button_hover_"+str(i+1)+".png")),
@@ -69,7 +72,12 @@ def TopMenu(window, canva, yy):
             button_list[kv].configure(command=lambda kk=kv-3:btn(frames[kk], kk))
 
     button_list[0].configure(command=lambda :LogIn_SignUp(window))
-    continents_explore(frames=frame_inner_explore)
+
+    font1= ctk.CTkFont('Imprint MT Shadow', 24, 'bold', 'roman')
+    continents_explore(frames=frms_inner[0])
+    Manage_Exp(frames=frms_inner[1], page='Manage', font1=font1, f_head=False)
+    Manage_Exp(frames=frms_inner[2], page='Experience', font1=font1, f_head=True)
+    destinations_menu(frames=frms_inner[3])
     window.resizable(False, False)
     #______________________________________________________________________________________________________________________________________#
 global my_y

@@ -1,0 +1,26 @@
+
+Business Class
+
+1. Executive:
+   - Spacious seat
+   - Gourmet meal
+   - Personal screen
+   - Messaging Wi-Fi
+   - USB charging
+   - Priority check-in
+
+2. Comfort:
+   - Lie-flat seat
+   - Premium meal
+   - Large screen
+   - Extra storage
+   - Full Wi-Fi
+   - Fast boarding
+
+3. Deluxe:
+   - Private suite
+   - Chef’s menu
+   - HD screen
+   - Lounge access
+   - Premium check-in
+   - VIP service

@@ -4,10 +4,11 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 from ExploreMenu import continents_explore
+from TopMenu import TopMenu
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"E:\user data\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -120,7 +121,7 @@ def HomePage(window, canva):
         border_width=0,
         text='',
         fg_color='transparent',
-        bg_color='#0B041B',
+        bg_color='#D8EADF',
         hover_color='#0B041B',
         border_color='#0B041B',
         #highlightthickness=0,
@@ -309,8 +310,10 @@ def btn(frm):
 '''
 app= ctk.CTk()
 app.geometry('1880x1000')
+'''
+web = ctk.CTk()
 canvas = Canvas(
-    app,
+    web,
     bg = "#FCFFDD",
     height = 1000,
     width = 1880,
@@ -320,6 +323,7 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
+'''
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
@@ -330,3 +334,6 @@ image_1 = canvas.create_image(
 HomePage(app, canva=canvas)
 app.mainloop()
 '''
+web.geometry('1880x1000')
+TopMenu(web, canvas, 88)
+web.mainloop()

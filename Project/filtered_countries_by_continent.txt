@@ -1,0 +1,183 @@
+Africa:
+  Algeria
+  Angola
+  Benin
+  Botswana
+  Burkina Faso
+  Burundi
+  Cameroon
+  Central African Republic
+  Chad
+  Comoros
+  Djibouti
+  Egypt
+  Equatorial Guinea
+  Eritrea
+  Eswatini
+  Ethiopia
+  Gabon
+  Gambia
+  Ghana
+  Guinea
+  Guinea-Bissau
+  Kenya
+  Lesotho
+  Liberia
+  Libya
+  Madagascar
+  Malawi
+  Mali
+  Mauritania
+  Mauritius
+  Morocco
+  Mozambique
+  Namibia
+  Niger
+  Nigeria
+  Rwanda
+  Senegal
+  Seychelles
+  Sierra Leone
+  Somalia
+  South Africa
+  South Sudan
+  Sudan
+  Togo
+  Tunisia
+  Uganda
+  Zambia
+  Zimbabwe
+
+Asia:
+  Afghanistan
+  Armenia
+  Azerbaijan
+  Bahrain
+  Bangladesh
+  Bhutan
+  China
+  Cyprus
+  Georgia
+  India
+  Indonesia
+  Iraq
+  Israel
+  Japan
+  Jordan
+  Kazakhstan
+  Kuwait
+  Kyrgyzstan
+  Lebanon
+  Malaysia
+  Maldives
+  Mongolia
+  Myanmar
+  Nepal
+  Oman
+  Pakistan
+  Philippines
+  Qatar
+  Saudi Arabia
+  Singapore
+  Sri Lanka
+  Tajikistan
+  Thailand
+  Turkmenistan
+  United Arab Emirates
+  Uzbekistan
+  Yemen
+
+Europe:
+  Albania
+  Andorra
+  Austria
+  Belarus
+  Belgium
+  Bosnia and Herzegovina
+  Bulgaria
+  Croatia
+  Denmark
+  Estonia
+  Finland
+  France
+  Germany
+  Greece
+  Hungary
+  Iceland
+  Ireland
+  Italy
+  Latvia
+  Liechtenstein
+  Lithuania
+  Luxembourg
+  Malta
+  Monaco
+  Montenegro
+  Netherlands
+  North Macedonia
+  Norway
+  Poland
+  Portugal
+  Romania
+  San Marino
+  Serbia
+  Slovakia
+  Slovenia
+  Spain
+  Sweden
+  Switzerland
+  Ukraine
+  United Kingdom
+
+North America:
+  Antigua and Barbuda
+  Aruba
+  Bahamas
+  Barbados
+  Belize
+  Canada
+  Costa Rica
+  Cuba
+  Curaçao
+  Dominica
+  Dominican Republic
+  El Salvador
+  Grenada
+  Guatemala
+  Haiti
+  Honduras
+  Jamaica
+  Mexico
+  Nicaragua
+  Panama
+  Saint Lucia
+  Saint Vincent and the Grenadines
+  Trinidad and Tobago
+
+Oceania:
+  Australia
+  Fiji
+  Kiribati
+  Marshall Islands
+  Nauru
+  New Zealand
+  Palau
+  Papua New Guinea
+  Samoa
+  Solomon Islands
+  Tonga
+  Tuvalu
+  Vanuatu
+
+South America:
+  Argentina
+  Brazil
+  Chile
+  Colombia
+  Ecuador
+  Guyana
+  Paraguay
+  Peru
+  Suriname
+  Uruguay
+

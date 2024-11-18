@@ -15,7 +15,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kam
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def PassDetails(window, list_no_pass, count_pass):
+def PassDetails(window, list_no_pass, fromto):
 
     def update_time():
         current_time = strftime('%H:%M:%S %p')
@@ -23,19 +23,24 @@ def PassDetails(window, list_no_pass, count_pass):
         time_lbl.after(1000, update_time)
 
     def checkdetail():
-
+        global entry_details
+        entry_details = [] #To be passed on
         for i, v in enumerate(ent_list):
+            det=[]
             for j, w in enumerate(v):
                 if ent_val_l[i][j] == 1:
-                     for k in range(10):
+                    for k in range(10):
                         if w.get() == ' '*k:
                             return False
-        return True
+                    else:
+                        det.append(w.get())     
+            entry_details.append(det)
+        return True, entry_details
 
     def seatres():
         if checkdetail():
-            
-            #SeatRes(window, list_no_pass, count_pass)
+            print(entry_details)
+            SeatRes(window, list_no_pass, entry_details, fromto)
             print('ok')
         else:
             messagebox.showerror('Error', 'Please fill all the fields')
@@ -88,7 +93,7 @@ def PassDetails(window, list_no_pass, count_pass):
     luggage_lim = CTkFrame(vert_top, fg_color='#071B41')
     luggage_lim.pack(pady=15, padx=10)  #Luggage Limit Frame
 
-    luggage_head_font = CTkFont('Algerian', 26, 'normal', underline=True)
+    luggage_head_font = CTkFont('Castellar', 26, 'normal', underline=True)
 
     luggage_lim_lbl = CTkLabel(luggage_lim, text='Luggage Limit', 
         font=luggage_head_font, text_color='#A6ACAC')
@@ -99,7 +104,7 @@ def PassDetails(window, list_no_pass, count_pass):
 
     lug_txt_amt, lug_txt = ['20 Kg', '10 Kg', '05 Kg'], ['   Adult',
                                                         '   Child',
-                                                        ' Toddler']
+                                                        ' Infant']
     for i in range(3):
         
         lug_txt_i = CTkLabel(luggage_lim_frm, text=lug_txt[i], font=('ink free', 20, 'bold'), text_color='#A6ACAC')
@@ -112,8 +117,8 @@ def PassDetails(window, list_no_pass, count_pass):
         lug_amt_i.grid(row=i, column=2, sticky='w', padx=1 ,pady=25)  #E.g. 20 Kg
          
 
-    continue_btn_font=ctk.CTkFont('Georgia', 18, 'bold', slant='italic')
-    continue_btn = ctk.CTkButton(vert_top, font=continue_btn_font, command= lambda : seatres(),
+    continue_btn_font = CTkFont('Georgia', 18, 'bold', slant='italic')
+    continue_btn = CTkButton(vert_top, font=continue_btn_font, command= lambda : seatres(),
             width=175,height=60, corner_radius=10, border_width=7, hover=False,text='Continue =>',  
             text_color='#A6ACAC', border_color = 'Black', bg_color='#1E1E1E', fg_color='#26294F' )
     continue_btn.pack(pady=65, padx=20, anchor='center')
@@ -131,8 +136,8 @@ def PassDetails(window, list_no_pass, count_pass):
         frm_l_r.grid(row=0, column=i, sticky=nsew, padx=pdx, pady=25)
         list_frm.append(frm_l_r)
     
-    no_adults, no_children, no_toddlers = list_no_pass[0], list_no_pass[1], list_no_pass[2]
-    no_l, txt_l_0 =[no_adults, no_children, no_toddlers] ,['Adult', 'Child', 'Toddler'] #More values
+    no_adults, no_children, no_infants = list_no_pass[0], list_no_pass[1], list_no_pass[2]
+    no_l, txt_l_0 =[no_adults, no_children, no_infants] ,['Adult', 'Child', 'Infant'] #More values
     frm_m, bb, pas_l, ent_list, ent_val_l, cc, k0 = [], [], [], [], [], 0, 0
 
     for j in range(3):
@@ -212,10 +217,10 @@ def PassDetails(window, list_no_pass, count_pass):
     window.resizable(False, False)
     print(V_W, V_H, S_W, S_H, H_W, H_H) #TBR
 
-'''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 web = ctk.CTk()
-web.geometry('1880x1000')
+web.geometry('1920x1080')
 web.configure(bg_color='#05191A') #TBR
 PassDetails(web, [1,1,1], 1)
 web.mainloop()
-'''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''

@@ -1,10 +1,77 @@
+import mysql.connector as mydb
 import customtkinter as ctk
 import PIL
 from PIL import Image, ImageTk
 from pathlib import Path
-
+from tkinter import messagebox
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"c:\Users\Arubaaa\OneDrive\Desktop\DESKTOP\kama 2024\build\assets\frame0")
+
+def sql_connecting():
+    connect = mydb.connect(
+        host="localhost",       
+        user="root",      
+        password="12345",  
+        database="loginsignup_details"
+    )
+    cursor = connect.cursor()
+    
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            email VARCHAR(69) PRIMARY KEY,
+            password VARCHAR(69) NOT NULL
+        )
+    """)
+    connect.commit()
+    connect.close()
+sql_connecting()
+
+def insert_user(email, password):
+    try:
+        connect = mydb.connect(
+            host="localhost",
+            user="root",
+            password="12345",
+            database="loginsignup_details"
+        )
+        cursor = connect.cursor()
+
+        
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        details= cursor.fetchall()
+
+        if details:
+            print("User already exists.")
+        else:
+            cursor.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (email, password))
+            connect.commit()
+            
+    except mydb.Error as e:
+        print(f"Error: {e}")
+
+    finally:
+        connect.close()
+
+
+def login_sql():
+    email = log_list[2][0].get()
+    password = log_list[2][1].get()
+    insert_user(email, password)
+    print("Succesfull.")
+
+
+def signup_sql():
+    email = sign_list[2][0].get()
+    password = sign_list[2][1].get()
+    ccc=0
+    for i in range(10):
+        if email == ' '*i or password == ' '*i:
+            ccc+=1
+    if ccc == 0:
+        insert_user(email, password)
+        print("succesfull.")
+    else:
+        messagebox.showerror("Error", "Invalid Email or Password")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -21,7 +88,10 @@ lsm_x, conf, ss, lstxt_l, b_clr = log_sign_w, True, [''], ['log in', 'sign up'],
 
 f_w_h = [[1400, 92], [log_sign_w, log_sign_h], [log_sign_w, log_sign_h], [f_mov_w, f_mov_h]]
 f_x_y, log_sign_list  = [[0,0], [0,92], [850, 92], [550, 92]], [log_list, sign_list]
+
+
 lsos = "Login to MirageFly"
+
 def moveleft(frm, window):
     global lsm_x, conf
     if lsm_x > 0:
@@ -108,12 +178,18 @@ def LogIn_SignUp(window):
             )
             w[4].place(x=550-307, y= 700-92-70)
             ff+=1
+
+    log_list[3].configure(command=login_sql)
+    sign_list[3].configure(command=signup_sql)
     log_list[4].configure(command=lambda :moveleft(frame_list[-1],window))
     sign_list[4].configure(command=lambda :moveright(frame_list[-1],window))
     window.resizable(False,False)
-'''''''''''''''''''''''''''
+'''
+''''''''''''''''''''''''
 web=ctk.CTk()
 web.geometry('1400x700')
 LogIn_SignUp(web)
 web.mainloop()
-'''''''''''''''''''''''''''
+
+''''''''''''''''''
+'''''''''

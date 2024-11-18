@@ -178,8 +178,8 @@ def continents_explore(frames):
                 
                 cont[3] = []
                 cont[4] = []
-
                 cont[5] = []
+                
                 cont[6] = all_places[cvar]
                 for places in cont[6]:
                         pi1 = places+' 1.jpeg'
@@ -223,8 +223,6 @@ def continents_explore(frames):
                                 cont[2],
                                 width=len(cont[6] [k])*6,
                                 height=20+18,
-                        # placeholder_text='eur_places[k]',
-                                #placeholder_text_color='black',
                                 text=cont[6][k],
                                 text_color_disabled='#CCD09F',#'#CCD09F',
                                 state='disabled',
@@ -290,5 +288,5 @@ def continents_explore(frames):
         ccc=5
         for i in range(4):
                 for j in range(7):
-                        continent[i][ccc][j].bind('<Enter>', lambda E=E, j=j, i=i: hover_enter(e=E, k=j, j=i, l=lval[i][j])) 
-                        continent[i][ccc][j].bind('<Leave>', lambda E=E, j=j, i=i: hover_leave(e=E, k=j, j=i, l=lval[i][j]))
+                        continent[i][ccc][j].bind('<Enter>', lambda E=E, i=i, j=j: hover_enter(e=E, k=j, j=i, l=lval[i][j])) 
+                        continent[i][ccc][j].bind('<Leave>', lambda E=E, i=i, j=j: hover_leave(e=E, k=j, j=i, l=lval[i][j]))

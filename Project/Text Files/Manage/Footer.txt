@@ -1,0 +1,8 @@
+Footer:
+>Check In Online 
+>Flight Status
+>Manage Booking 
+>Track Your Bags
+>Seat Selection & Upgrades 
+>Self-Service Re-accommodation
+>Request Refund
