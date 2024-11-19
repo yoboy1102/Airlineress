@@ -24,8 +24,8 @@ def dep(window, fromto, listno_pass, text_date):
 def DepartuePage(window, fromto, listno_pass, tripway, text_date):
     global ozbool_list, in_all_amt_changed, all_amt_changed
     bvartt = 6
-    e_c, e_opt = ['blue', 'yellow', 'green', 'red', 'grey'], ['Basic', 'Comfort', 'Basic Luxury', 'Executive', 'Extra']
-    b_c, b_opt = ['black', 'green', 'red', 'blue', 'grey', 'grey'], ['Value', 'Comfort', 'Deluxe', 'Premium', 'Prime']
+    e_c, e_opt = ['blue', '#EB5757', '#007B65', 'red', 'grey'], ['Basic', 'Comfort', 'Basic Luxury', 'Executive', 'Extra']
+    b_c, b_opt = ['yellow', 'green', '#5CD6C0', '#407AEA', 'grey', 'grey'], ['Value', 'Comfort', 'Deluxe', 'Premium', 'Prime']
     all_c, all_opt, all_ebtext = [e_c, b_c], [e_opt, b_opt], ['Economy Text', 'Business Text']
     ozbool_list, font_radio  = [], ctk.CTkFont('Georgia', 16, 'bold')       #SCV
     list_d= [1,3,5,7,9,11,13]
@@ -93,10 +93,7 @@ def DepartuePage(window, fromto, listno_pass, tripway, text_date):
             k=[]
             test_list.append(k)  
             
-        print('ini', ozbool_list)        #TBR
         ozbool_list[c][d]=1
-        print('exi', ozbool_list)        #TBR
-
         radiovar = ctk.StringVar(window,value='')
         f_sz_rad_h, f_sz_rad_w = 315, 200  #SCV
         b_w, ij, c_r = 2, 0, 22 #SCV
